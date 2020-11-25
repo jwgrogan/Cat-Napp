@@ -2,9 +2,12 @@ package edu.utap.catnapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Layout
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.FragmentTransaction
@@ -16,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         lateinit var jsonAww100: String
         lateinit var subreddit1: String
     }
-    private lateinit var homeFragment: HomeFragment
+//    private lateinit var homeFragment: HomeFragment
 
     fun hideKeyboard() {
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
@@ -24,25 +27,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     // https://stackoverflow.com/questions/24838155/set-onclick-listener-on-action-bar-title-in-android/29823008#29823008
-    private fun initActionBar(actionBar: ActionBar) {
-        // Disable the default and enable the custom
-        actionBar.setDisplayShowTitleEnabled(false)
-        actionBar.setDisplayShowCustomEnabled(true)
-        val customView: View =
-            layoutInflater.inflate(R.layout.action_bar, null)
-        // Apply the custom view
-        actionBar.customView = customView
-    }
+//    private fun initActionBar(actionBar: ActionBar) {
+//        // Disable the default and enable the custom
+//        actionBar.setDisplayShowTitleEnabled(false)
+//        actionBar.setDisplayShowCustomEnabled(true)
+//        val customView: View =
+//            layoutInflater.inflate(R.layout.action_bar, null)
+//        // Apply the custom view
+//        actionBar.customView = customView
+//    }
 
-    private fun initHomeFragment() {
-        supportFragmentManager
-            .beginTransaction()
-            // No back stack for home
-            .add(R.id.main_frame, homeFragment)
-            // TRANSIT_FRAGMENT_FADE calls for the Fragment to fade away
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-            .commit()
-    }
+//    private fun initHomeFragment() {
+//        supportFragmentManager
+//            .beginTransaction()
+//            // No back stack for home
+//            .add(R.id.main_frame, homeFragment)
+//            // TRANSIT_FRAGMENT_FADE calls for the Fragment to fade away
+//            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+//            .commit()
+//    }
 
 //    private fun initDebug() {
 //        if(globalDebug) {
@@ -61,14 +64,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar?.let{
-            initActionBar(it)
-        }
+//        setSupportActionBar(toolbar)
+//        supportActionBar?.let{
+//            initActionBar(it)
+//        }
+
+        val content = findViewById<View>(R.id.content_main)
+        val spinner = content.findViewById<Spinner>(R.id.categorySpinner)
+        val categoryTypeAdapter = ArrayAdapter.createFromResource(this,
+            R.array.category_type,
+            android.R.layout.simple_spinner_item)
+        categoryTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = categoryTypeAdapter
 
         // set up buttons for each category, init fragment for each
-        homeFragment = HomeFragment.newInstance()
-        initHomeFragment()
+//        homeFragment = HomeFragment.newInstance()
+//        initHomeFragment()
 //        initDebug()
     }
 }

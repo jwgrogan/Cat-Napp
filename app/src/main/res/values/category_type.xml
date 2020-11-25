@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category_type">
+        <item>Cat-egory?</item>
+        <item>Hats</item>
+        <item>Space</item>
+        <item>Funny</item>
+        <item>Sunglasses</item>
+        <item>Boxes</item>
+        <item>Caturday</item>
+        <item>Ties</item>
+        <item>Dream</item>
+        <item>Sinks</item>
+        <item>Clothes</item>
+    </string-array>
+</resources>
