@@ -7,6 +7,6 @@ import edu.utap.catnapp.R
 class SelectCats : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_select_cats)
+        setContentView(R.layout.fragment_select_cats)
     }
 }
