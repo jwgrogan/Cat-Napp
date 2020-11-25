@@ -11,7 +11,7 @@
         android:theme="@style/Theme.CatNapp">
         <activity android:name=".ui.OneCat"></activity>
         <activity android:name=".ui.SelectCats" />
-        <activity android:name=".ui.PastCats" />
+        <activity android:name=".ui.FavCats" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
