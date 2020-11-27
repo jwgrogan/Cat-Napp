@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main">
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -19,7 +18,6 @@
         android:paddingBottom="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -31,7 +29,6 @@
         android:paddingBottom="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/catNappTV"/>
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -43,7 +40,6 @@
         android:paddingBottom="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/purrfectTV"/>
-
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,7 +48,6 @@
         android:layout_marginRight="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dropdownTV" />
-
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,15 +59,4 @@
         android:layout_marginBottom="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <androidx.fragment.app.FragmentContainerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/main_frame"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

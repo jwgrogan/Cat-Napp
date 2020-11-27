@@ -1,25 +1,24 @@
 package edu.utap.catnapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Layout
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.FragmentTransaction
+import edu.utap.catnapp.ui.SelectCatsWrapper
 
 class MainActivity : AppCompatActivity() {
     // This allows us to do better testing
     companion object {
         var globalDebug = false
-        lateinit var jsonAww100: String
-        lateinit var subreddit1: String
+        const val categoryKey = "categoryKey"
     }
-//    private lateinit var homeFragment: HomeFragment
 
     fun hideKeyboard() {
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
@@ -27,25 +26,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     // https://stackoverflow.com/questions/24838155/set-onclick-listener-on-action-bar-title-in-android/29823008#29823008
-//    private fun initActionBar(actionBar: ActionBar) {
-//        // Disable the default and enable the custom
-//        actionBar.setDisplayShowTitleEnabled(false)
-//        actionBar.setDisplayShowCustomEnabled(true)
-//        val customView: View =
-//            layoutInflater.inflate(R.layout.action_bar, null)
-//        // Apply the custom view
-//        actionBar.customView = customView
-//    }
-
-//    private fun initHomeFragment() {
-//        supportFragmentManager
-//            .beginTransaction()
-//            // No back stack for home
-//            .add(R.id.main_frame, homeFragment)
-//            // TRANSIT_FRAGMENT_FADE calls for the Fragment to fade away
-//            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-//            .commit()
-//    }
+    private fun initActionBar(actionBar: ActionBar) {
+        // Disable the default and enable the custom
+        actionBar.setDisplayShowTitleEnabled(false)
+        actionBar.setDisplayShowCustomEnabled(true)
+        val customView: View =
+            layoutInflater.inflate(R.layout.action_bar, null)
+        // Apply the custom view
+        actionBar.customView = customView
+    }
 
 //    private fun initDebug() {
 //        if(globalDebug) {
@@ -64,10 +53,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
-//        setSupportActionBar(toolbar)
-//        supportActionBar?.let{
-//            initActionBar(it)
-//        }
+        setSupportActionBar(toolbar)
+        supportActionBar?.let{
+            initActionBar(it)
+        }
 
         val content = findViewById<View>(R.id.content_main)
         val spinner = content.findViewById<Spinner>(R.id.categorySpinner)
@@ -78,8 +67,41 @@ class MainActivity : AppCompatActivity() {
         spinner.adapter = categoryTypeAdapter
 
         // set up buttons for each category, init fragment for each
-//        homeFragment = HomeFragment.newInstance()
-//        initHomeFragment()
 //        initDebug()
+        val button = content.findViewById<Button>(R.id.friendButton)
+        button?.setOnClickListener {
+            initSelectCats()
+        }
+    }
+
+    private fun initSelectCats() {
+        //  XXX Write me.  Toast on empty name, otherwise launch GuessingGame
+        val content = findViewById<View>(R.id.content_main)
+        val spinner = content.findViewById<Spinner>(R.id.categorySpinner)
+
+        if (spinner.selectedItemPosition == 0) {
+            val toast = Toast.makeText(this, "Choose a cat-egory!", Toast.LENGTH_LONG)
+            toast.show()
+        } else {
+            val getSelectCatsIntent = Intent(this, SelectCatsWrapper::class.java)
+            val result = 1
+            val myExtras = Bundle()
+            myExtras.putString(categoryKey, spinner.getItemAtPosition(spinner.selectedItemPosition).toString())
+            getSelectCatsIntent.putExtras(myExtras)
+            startActivityForResult(getSelectCatsIntent, result)
+        }
+    }
+
+    // NB: If you declare data: Intent, you get onActivityResult overrides nothing
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        // XXX Write me
+        data?.extras?.apply {
+            // Not sure if this is needed at all
+            // Maybe pass favourites back?
+            // If we want the favourites heart in toolbar
+            // On this page
+        }
     }
 }
