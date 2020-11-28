@@ -6,11 +6,12 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Query
 
 interface CatApi {
     @GET("/v1/images/search?limit=9")
-    suspend fun getNineCats(@Query("category_ids") categories: String) : CatResponse
+    suspend fun getNineCats(@Query("category_ids") categories: String, @Header("x-api-key") key: String) : CatResponse
 
 
     // I just looked at the response and "parsed" it by eye
