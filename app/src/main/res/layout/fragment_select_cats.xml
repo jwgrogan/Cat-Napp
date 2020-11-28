@@ -6,57 +6,64 @@
     android:orientation="vertical"
     android:background="#FFFFFFFF">
 
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:id="@+id/toolbarOnePost"
-        android:background="@color/colorPrimary"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
-        >
-    </androidx.appcompat.widget.Toolbar>
+<!--    <androidx.appcompat.widget.Toolbar-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="?attr/actionBarSize"-->
+<!--        android:id="@+id/toolbarOnePost"-->
+<!--        android:background="@color/colorPrimary"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:popupTheme="@style/AppTheme.PopupOverlay"-->
+<!--        >-->
+<!--    </androidx.appcompat.widget.Toolbar>-->
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/swipeRefreshLayout"
         >
-        <GridLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:rowCount="3"
-            android:columnCount="3"
-            android:layout_gravity="center"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            >
-            <Button
-                android:layout_rowWeight=".3"
-                android:layout_columnWeight=".3"/>
-            <Button
-                android:layout_rowWeight=".3"
-                android:layout_columnWeight=".3"/>
-            <Button
-                android:layout_rowWeight=".3"
-                android:layout_columnWeight=".3"/>
-            <Button
-                android:layout_rowWeight=".3"
-                android:layout_columnWeight=".3"/>
-            <Button
-                android:layout_rowWeight=".3"
-                android:layout_columnWeight=".3"/>
-            <Button
-                android:layout_rowWeight=".3"
-                android:layout_columnWeight=".3"/>
-            <Button
-                android:layout_rowWeight=".3"
-                android:layout_columnWeight=".3"/>
-            <Button
-                android:layout_rowWeight=".3"
-                android:layout_columnWeight=".3"/>
-            <Button
-                android:layout_rowWeight=".3"
-                android:layout_columnWeight=".3"/>
-        </GridLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+<!--        <GridLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:rowCount="3"-->
+<!--            android:columnCount="3"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:padding="10dp"-->
+<!--            >-->
+<!--            <Button-->
+<!--                android:layout_rowWeight=".3"-->
+<!--                android:layout_columnWeight=".3"/>-->
+<!--            <Button-->
+<!--                android:layout_rowWeight=".3"-->
+<!--                android:layout_columnWeight=".3"/>-->
+<!--            <Button-->
+<!--                android:layout_rowWeight=".3"-->
+<!--                android:layout_columnWeight=".3"/>-->
+<!--            <Button-->
+<!--                android:layout_rowWeight=".3"-->
+<!--                android:layout_columnWeight=".3"/>-->
+<!--            <Button-->
+<!--                android:layout_rowWeight=".3"-->
+<!--                android:layout_columnWeight=".3"/>-->
+<!--            <Button-->
+<!--                android:layout_rowWeight=".3"-->
+<!--                android:layout_columnWeight=".3"/>-->
+<!--            <Button-->
+<!--                android:layout_rowWeight=".3"-->
+<!--                android:layout_columnWeight=".3"/>-->
+<!--            <Button-->
+<!--                android:layout_rowWeight=".3"-->
+<!--                android:layout_columnWeight=".3"/>-->
+<!--            <Button-->
+<!--                android:layout_rowWeight=".3"-->
+<!--                android:layout_columnWeight=".3"/>-->
+<!--        </GridLayout>-->
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

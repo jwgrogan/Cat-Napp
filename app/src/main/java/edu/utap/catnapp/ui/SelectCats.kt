@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -27,6 +28,7 @@ class SelectCats: Fragment() {
     private val subredditsFragTag = "subredditsFragTag"
     // XXX initialize viewModel
     private val viewModel : MainViewModel by activityViewModels()
+    private lateinit var adapter : CatAdapter
 //    private lateinit var adapter: PostRowAdapter
 
     companion object {
@@ -146,6 +148,20 @@ class SelectCats: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_select_cats, container, false)
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        val gridLayoutManager = GridLayoutManager(context, 3)
+        recyclerView.layoutManager = gridLayoutManager
+
+        adapter = CatAdapter(viewModel)
+        recyclerView.adapter = adapter
+
+        viewModel.observeCats().observe(viewLifecycleOwner, Observer {
+//            adapter.submitList(it)
+            adapter.notifyDataSetChanged()
+        })
+
+
 //        initSwipeLayout(view)
 //        initAdapter(view)
 //        initTitleObservers()
