@@ -1,21 +1,32 @@
 package edu.utap.catnapp.api
 
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class CatPost (
+    // TODO: fix breeds implementation
     @SerializedName("breeds")
-    val breeds: Breed,
+    @Expose
+    val breeds: List<Breed>,
     @SerializedName("categories")
-    val categories: Category,
+    @Expose
+    val categories: List<Category>,
     @SerializedName("height")
+    @Expose
     val height: Int,
     @SerializedName("id")
+    @Expose
     val id: String,
     @SerializedName("url")
+    @Expose
     val url: String,
     @SerializedName("width")
+    @Expose
     val width: Int
     )
+
+
+// this fucks up the serializer - need to find new way
 
 data class Category (
     @SerializedName("id")
@@ -40,6 +51,7 @@ data class Breed (
     val wikipedia_url: String,
     @SerializedName("origin")
     val origin: String,
+    // TODO: weight is an array, fix
     @SerializedName("weight_imperial")
     val weight_imperial: String,
     @SerializedName("experimental")

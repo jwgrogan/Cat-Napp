@@ -17,7 +17,7 @@ import java.lang.reflect.Type
 
 interface CatApi {
     @GET("/v1/images/search?limit=9")
-    suspend fun getNineCats(@Query("category_ids") categories: String, @Header("x-api-key") key: String) : List<CatResponse>
+    suspend fun getNineCats(@Query("category_ids") categories: String, @Header("x-api-key") key: String) : List<CatPost>
 
 
     // I just looked at the response and "parsed" it by eye
@@ -29,7 +29,8 @@ interface CatApi {
 //        val after: String?,
 //        val before: String?
 //    )
-    data class CatResponse(val data: List<CatPost>)
+//    data class CatResponse(val data: List<CatPost>)
+//    data class CatResponse(val data: CatPost)
 
     class SpannableDeserializer : JsonDeserializer<SpannableString> {
         // @Throws(JsonParseException::class)
@@ -45,9 +46,10 @@ interface CatApi {
     companion object {
         // Tell Gson to use our SpannableString deserializer
         private fun buildGsonConverterFactory(): GsonConverterFactory {
-            val gsonBuilder = GsonBuilder().registerTypeAdapter(
-                SpannableString::class.java, SpannableDeserializer()
-            )
+//            val gsonBuilder = GsonBuilder().registerTypeAdapter(
+//                SpannableString::class.java, SpannableDeserializer()
+//            )
+            val gsonBuilder = GsonBuilder().excludeFieldsWithoutExposeAnnotation()
             return GsonConverterFactory.create(gsonBuilder.create())
         }
         // Keep the base URL simple

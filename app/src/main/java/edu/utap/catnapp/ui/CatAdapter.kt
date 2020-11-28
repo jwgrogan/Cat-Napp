@@ -78,7 +78,7 @@ class CatAdapter(private val viewModel: MainViewModel)
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-//        holder.bind(viewModel.observeCats().value!![position])
+        holder.bind(viewModel.observeCats().value!![position])
     }
 
     override fun getItemCount(): Int {

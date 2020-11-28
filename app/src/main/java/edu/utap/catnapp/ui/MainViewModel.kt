@@ -20,7 +20,7 @@ class MainViewModel : ViewModel() {
     private var categories = ""
     private val catApi = CatApi.create()
     private val repository = CatRepository(catApi)
-    private val cats = MutableLiveData<List<CatApi.CatResponse>>()
+    private val cats = MutableLiveData<List<CatPost>>()
     private var favCats = MutableLiveData<List<CatPost>>().apply {
         value = mutableListOf()
     }
@@ -41,7 +41,7 @@ class MainViewModel : ViewModel() {
 
     }
 
-    fun observeCats(): LiveData<List<CatApi.CatResponse>> {
+    fun observeCats(): LiveData<List<CatPost>> {
         return cats
     }
 
