@@ -6,22 +6,22 @@ import com.google.gson.annotations.SerializedName
 data class CatPost (
     // TODO: fix breeds implementation
     @SerializedName("breeds")
-    @Expose
+//    @Expose
     val breeds: List<Breed>,
     @SerializedName("categories")
-    @Expose
+//    @Expose
     val categories: List<Category>,
     @SerializedName("height")
-    @Expose
+//    @Expose
     val height: Int,
     @SerializedName("id")
-    @Expose
+//    @Expose
     val id: String,
     @SerializedName("url")
-    @Expose
+//    @Expose
     val url: String,
     @SerializedName("width")
-    @Expose
+//    @Expose
     val width: Int
     )
 
@@ -38,9 +38,11 @@ data class Category (
 data class Breed (
     //TODO: finish this
     @SerializedName("id")
-    val breeds: String,
+    val id: String,
     @SerializedName("name")
-    val categories: String,
+    val name: String,
+    @SerializedName("description")
+    val description: String,
     @SerializedName("temperament")
     val temperament: String,
     @SerializedName("life_span")

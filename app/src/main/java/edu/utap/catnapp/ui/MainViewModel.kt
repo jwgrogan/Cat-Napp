@@ -5,10 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import edu.utap.catnapp.api.Breed
 import edu.utap.catnapp.api.CatApi
 import edu.utap.catnapp.api.CatPost
 import edu.utap.catnapp.api.CatRepository
@@ -36,7 +38,7 @@ class MainViewModel : ViewModel() {
     fun netCats() {
         viewModelScope.launch(
                 context = viewModelScope.coroutineContext + Dispatchers.IO) {
-            cats.postValue(repository.getNineCats("1"))
+            cats.postValue(repository.getNineCats(categories))
         }
 
     }
@@ -75,21 +77,30 @@ class MainViewModel : ViewModel() {
 
     // launch single cat image view
     companion object {
+
         const val titleKey = "titleKey"
         const val imageURLKey = "imageURLKey"
+        const val descKey = "descKey"
+        const val wikiURLKey = "wikiURLKey"
+        var breedFlag = false
 //        const val thumbnailURLKey = "thumbnailURLKey"
 //        const val textKey = "textKey"
         fun doOneCat(context: Context, catPost: CatPost) {
             val intent = Intent(context, OneCat::class.java)
             val data = Bundle()
             // TODO: link to xml
-//            data.putString(titleKey, redditPost.title.toString())
-//            data.putString(textKey, redditPost.selfText.toString())
-//            data.putString(imageURLKey, redditPost.imageURL)
-//            data.putString(thumbnailURLKey, redditPost.thumbnailURL)
-//            intent.putExtras(data)
+            if (catPost.breeds != emptyList<Breed>()) {
+                data.putString(titleKey, catPost.breeds[0].name)
+                data.putString(descKey, catPost.breeds[0].description)
+                data.putString(wikiURLKey, catPost.breeds[0].wikipedia_url)
+                breedFlag = true
+            }
+            data.putString(imageURLKey, catPost.url)
 
-            ContextCompat.startActivity(context, intent, data)
+//            data.putString(thumbnailURLKey, redditPost.thumbnailURL)
+            intent.putExtras(data)
+
+            startActivity(context, intent, data)
         }
     }
 }

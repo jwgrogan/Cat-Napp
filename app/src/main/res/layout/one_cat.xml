@@ -17,24 +17,31 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/oneCatShortTitleTV"
+            android:id="@+id/oneCatBreedTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-
     </androidx.appcompat.widget.Toolbar>
+
+
+    <ImageView
+        android:id="@+id/oneCatIV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/oneCatToolbar"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/oneCatToolbar"
+        app:layout_constraintTop_toBottomOf="@id/oneCatIV"
         app:layout_constraintLeft_toLeftOf="parent">
 
         <TextView
-            android:id="@+id/onePostLongTitleTV"
+            android:id="@+id/oneCatDescriptionTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -42,11 +49,12 @@
 
     </ScrollView>
 
-
-    <ImageView
-        android:id="@+id/onePostIV"
+    <TextView
+        android:id="@+id/oneCatWikiTV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
         app:layout_constraintTop_toBottomOf="@+id/scrollView"
         app:layout_constraintStart_toStartOf="parent"/>
 

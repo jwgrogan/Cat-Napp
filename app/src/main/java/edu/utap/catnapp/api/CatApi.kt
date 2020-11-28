@@ -32,28 +32,24 @@ interface CatApi {
 //    data class CatResponse(val data: List<CatPost>)
 //    data class CatResponse(val data: CatPost)
 
-    class SpannableDeserializer : JsonDeserializer<SpannableString> {
-        // @Throws(JsonParseException::class)
-        override fun deserialize(
-            json: JsonElement,
-            typeOfT: Type,
-            context: JsonDeserializationContext
-        ): SpannableString {
-            return SpannableString(json.asString)
-        }
-    }
+//    class SpannableDeserializer : JsonDeserializer<SpannableString> {
+//        // @Throws(JsonParseException::class)
+//        override fun deserialize(
+//            json: JsonElement,
+//            typeOfT: Type,
+//            context: JsonDeserializationContext
+//        ): SpannableString {
+//            return SpannableString(json.asString)
+//        }
+//    }
 
     companion object {
-        // Tell Gson to use our SpannableString deserializer
-        private fun buildGsonConverterFactory(): GsonConverterFactory {
-//            val gsonBuilder = GsonBuilder().registerTypeAdapter(
-//                SpannableString::class.java, SpannableDeserializer()
-//            )
-            val gsonBuilder = GsonBuilder().excludeFieldsWithoutExposeAnnotation()
-            return GsonConverterFactory.create(gsonBuilder.create())
-        }
-        // Keep the base URL simple
-        //private const val BASE_URL = "https://www.reddit.com/"
+        // Tell Gson to ignore fields without @expose
+//        private fun buildGsonConverterFactory(): GsonConverterFactory {
+//            val gsonBuilder = GsonBuilder().excludeFieldsWithoutExposeAnnotation()
+//            return GsonConverterFactory.create(gsonBuilder.create())
+//        }
+
         var httpurl = HttpUrl.Builder()
             .scheme("https")
             .host("api.thecatapi.com")
@@ -69,7 +65,8 @@ interface CatApi {
             return Retrofit.Builder()
                 .baseUrl(httpUrl)
                 .client(client)
-                .addConverterFactory(buildGsonConverterFactory())
+//                .addConverterFactory(buildGsonConverterFactory())
+                .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(CatApi::class.java)
         }

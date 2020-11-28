@@ -16,11 +16,28 @@
 <!--        >-->
 <!--    </androidx.appcompat.widget.Toolbar>-->
 
+    <Button
+        android:id="@+id/selectCat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:text="select this cat!" />
+
+    <Button
+        android:id="@+id/randomCat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textAlignment="center"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:text="they're all so great...choose for me!"/>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/swipeRefreshLayout"
-        >
+        android:id="@+id/swipeRefreshLayout" >
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
