@@ -20,31 +20,28 @@ class MainViewModel : ViewModel() {
     private var categories = ""
     private val catApi = CatApi.create()
     private val repository = CatRepository(catApi)
-    private val cats = MutableLiveData<CatApi.CatResponse>()
+    private val cats = MutableLiveData<List<CatPost>>()
     private var favCats = MutableLiveData<List<CatPost>>().apply {
         value = mutableListOf()
     }
     init {
-        // TODO: need this?
-//        setCategories(categories)
+        setCategories(categories)
     }
 
-//    fun setCategories(level: String) {
-//        categories = ""
-//        }
-//        Log.d(javaClass.simpleName, "level $level END difficulty $difficulty")
-//    }
+    fun setCategories(category: String) {
+        categories = category
+    }
 
     // cat view refresh
-    fun netRefresh() {
+    fun netCats() {
         viewModelScope.launch(
                 context = viewModelScope.coroutineContext + Dispatchers.IO) {
-            cats.postValue(repository.getNineCats(categories))
+            cats.postValue(repository.getNineCats("1"))
         }
 
     }
 
-    fun observeCats(): LiveData<CatApi.CatResponse> {
+    fun observeCats(): LiveData<List<CatPost>> {
         return cats
     }
 
@@ -64,8 +61,8 @@ class MainViewModel : ViewModel() {
             favCats.value = it
         }
     }
-    fun isFav(albumRec: CatPost): Boolean {
-        return favCats.value?.contains(albumRec) ?: false
+    fun isFav(cat: CatPost): Boolean {
+        return favCats.value?.contains(cat) ?: false
     }
     fun removeFav(posts: CatPost) {
         val localList = favCats.value?.toMutableList()

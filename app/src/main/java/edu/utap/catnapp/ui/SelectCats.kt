@@ -151,7 +151,9 @@ class SelectCats: Fragment() {
 //        initTitleObservers()
 //        initFav()
 //        initSearch()
-//        viewModel.netPosts()
+        viewModel.netCats()
+        val cats = viewModel.observeCats()
+        print(cats)
 
         // Copied from Demo
 //        viewModel.observePosts().observe(viewLifecycleOwner, Observer {
