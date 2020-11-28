@@ -3,6 +3,7 @@ package edu.utap.catnapp.ui
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -70,9 +71,7 @@ class SelectCatsWrapper : AppCompatActivity() {
         }
 
         category = intent.extras?.getString(MainActivity.categoryKey)
-        val toast = Toast.makeText(this, category, Toast.LENGTH_LONG)
-        toast.show()
-
+        MainViewModel.categories = category.toString()
 
         // set up buttons for each category, init fragment for each
         selectCats = SelectCats.newInstance()

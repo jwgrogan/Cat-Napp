@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         var globalDebug = false
         const val categoryKey = "categoryKey"
     }
+    private var categoryMap = mapOf<String, String>("Hats" to "1", "Space" to "2", "Funny" to "3", "Sunglasses" to "4", "Boxes" to "5", "Caturday" to "6", "Ties" to "7", "Dream" to "9", "Sinks" to "14", "Clothes" to "15")
 
     fun hideKeyboard() {
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
@@ -86,7 +87,7 @@ class MainActivity : AppCompatActivity() {
             val getSelectCatsIntent = Intent(this, SelectCatsWrapper::class.java)
             val result = 1
             val myExtras = Bundle()
-            myExtras.putString(categoryKey, spinner.getItemAtPosition(spinner.selectedItemPosition).toString())
+            myExtras.putString(categoryKey, categoryMap[spinner.getItemAtPosition(spinner.selectedItemPosition).toString()])
             getSelectCatsIntent.putExtras(myExtras)
             startActivityForResult(getSelectCatsIntent, result)
         }
