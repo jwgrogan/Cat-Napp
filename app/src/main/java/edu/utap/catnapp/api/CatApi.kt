@@ -17,19 +17,19 @@ import java.lang.reflect.Type
 
 interface CatApi {
     @GET("/v1/images/search?limit=9")
-    suspend fun getNineCats(@Query("category_ids") categories: String, @Header("x-api-key") key: String) : ListingResponse
+    suspend fun getNineCats(@Query("category_ids") categories: String, @Header("x-api-key") key: String) : CatResponse
 
 
     // I just looked at the response and "parsed" it by eye
 //    data class CatResponse(val results: List<CatPost>)
-    class ListingResponse(val data: ListingData)
+//    class ListingResponse(val data: ListingData)
 
-    class ListingData(
-        val children: List<KittenResponse>,
-        val after: String?,
-        val before: String?
-    )
-    data class KittenResponse(val data: CatPost)
+//    class ListingData(
+//        val children: List<KittenResponse>,
+//        val after: String?,
+//        val before: String?
+//    )
+    data class CatResponse(val data: List<CatPost>)
 
     class SpannableDeserializer : JsonDeserializer<SpannableString> {
         // @Throws(JsonParseException::class)

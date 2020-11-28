@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
         android:layout_weight="1"
-        android:id="@+id/rowFav"
+        android:id="@+id/gridFav"
         android:src="@drawable/ic_favorite_border_black_24dp"
         />
 </RelativeLayout>

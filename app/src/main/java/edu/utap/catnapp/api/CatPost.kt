@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class CatPost (
     @SerializedName("breeds")
-    val breeds: List<Breed>,
+    val breeds: Breed,
     @SerializedName("categories")
     val categories: List<Category>,
     @SerializedName("height")

@@ -36,7 +36,7 @@ class MainViewModel : ViewModel() {
     fun netCats() {
         viewModelScope.launch(
                 context = viewModelScope.coroutineContext + Dispatchers.IO) {
-            cats.postValue(repository.getNineCats(categories).results)
+            cats.postValue(repository.getNineCats(categories))
         }
 
     }

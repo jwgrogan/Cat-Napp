@@ -22,10 +22,11 @@ class CatAdapter(private val viewModel: MainViewModel)
         // (itemView.context as FragmentActivity).supportFragmentManager.popBackStack()
         private var gridPic = view.findViewById<ImageView>(R.id.gridImage)
         private var gridText = view.findViewById<TextView>(R.id.gridText)
-        private var fav = view.findViewById<ImageView>(R.id.rowFav)
+        private var fav = view.findViewById<ImageView>(R.id.gridFav)
 //        val subRowDetails = itemView.findViewById<TextView>(R.id.subRowDetails)
 
         init {
+            // TODO: this?
         }
 
 
@@ -80,9 +81,9 @@ class CatAdapter(private val viewModel: MainViewModel)
         holder.bind(viewModel.observeCats().value!![position])
     }
 
-//    override fun getItemCount(): Int {
-//        return viewModel.observeLiveSubreddits().value?.count() ?:0
-//    }
+    override fun getItemCount(): Int {
+        return viewModel.observeCats().value?.count() ?:0
+    }
 
 //    fun addAll(redditPost : List<RedditPost>) {
 //        subreddits.addAll(redditPost)
