@@ -19,6 +19,35 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class MainViewModel : ViewModel() {
+
+    companion object {
+        // for category selection
+        var categories = ""
+
+        // setup for cat details activity
+        const val titleKey = "titleKey"
+        const val imageURLKey = "imageURLKey"
+        const val descKey = "descKey"
+        const val wikiURLKey = "wikiURLKey"
+        var breedFlag = false
+
+        fun doOneCat(context: Context, catPost: CatPost) {
+            val intent = Intent(context, OneCat::class.java)
+            val data = Bundle()
+            // TODO: link to xml
+            if (catPost.breeds != emptyList<Breed>()) {
+                data.putString(titleKey, catPost.breeds[0].name)
+                data.putString(descKey, catPost.breeds[0].description)
+                data.putString(wikiURLKey, catPost.breeds[0].wikipedia_url)
+                breedFlag = true
+            }
+            data.putString(imageURLKey, catPost.url)
+
+            intent.putExtras(data)
+            startActivity(context, intent, data)
+        }
+    }
+
     private val catApi = CatApi.create()
     private val repository = CatRepository(catApi)
     private val cats = MutableLiveData<List<CatPost>>()
@@ -71,37 +100,6 @@ class MainViewModel : ViewModel() {
         localList?.let {
             it.remove(posts)
             favCats.value = it
-        }
-    }
-
-
-    // launch single cat image view
-    companion object {
-
-        var categories = ""
-        const val titleKey = "titleKey"
-        const val imageURLKey = "imageURLKey"
-        const val descKey = "descKey"
-        const val wikiURLKey = "wikiURLKey"
-        var breedFlag = false
-//        const val thumbnailURLKey = "thumbnailURLKey"
-//        const val textKey = "textKey"
-        fun doOneCat(context: Context, catPost: CatPost) {
-            val intent = Intent(context, OneCat::class.java)
-            val data = Bundle()
-            // TODO: link to xml
-            if (catPost.breeds != emptyList<Breed>()) {
-                data.putString(titleKey, catPost.breeds[0].name)
-                data.putString(descKey, catPost.breeds[0].description)
-                data.putString(wikiURLKey, catPost.breeds[0].wikipedia_url)
-                breedFlag = true
-            }
-            data.putString(imageURLKey, catPost.url)
-
-//            data.putString(thumbnailURLKey, redditPost.thumbnailURL)
-            intent.putExtras(data)
-
-            startActivity(context, intent, data)
         }
     }
 }
