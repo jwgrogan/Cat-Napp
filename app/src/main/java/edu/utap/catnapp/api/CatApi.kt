@@ -17,7 +17,7 @@ import java.lang.reflect.Type
 
 interface CatApi {
     @GET("/v1/images/search?limit=9")
-    suspend fun getNineCats(@Query("category_ids") categories: String, @Header("x-api-key") key: String) : CatResponse
+    suspend fun getNineCats(@Query("category_ids") categories: String, @Header("x-api-key") key: String) : List<CatResponse>
 
 
     // I just looked at the response and "parsed" it by eye

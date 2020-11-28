@@ -20,7 +20,7 @@ class MainViewModel : ViewModel() {
     private var categories = ""
     private val catApi = CatApi.create()
     private val repository = CatRepository(catApi)
-    private val cats = MutableLiveData<List<CatPost>>()
+    private val cats = MutableLiveData<List<CatApi.CatResponse>>()
     private var favCats = MutableLiveData<List<CatPost>>().apply {
         value = mutableListOf()
     }
@@ -36,12 +36,12 @@ class MainViewModel : ViewModel() {
     fun netCats() {
         viewModelScope.launch(
                 context = viewModelScope.coroutineContext + Dispatchers.IO) {
-            cats.postValue(repository.getNineCats(categories))
+            cats.postValue(repository.getNineCats("1"))
         }
 
     }
 
-    fun observeCats(): LiveData<List<CatPost>> {
+    fun observeCats(): LiveData<List<CatApi.CatResponse>> {
         return cats
     }
 

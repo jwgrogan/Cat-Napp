@@ -6,7 +6,7 @@ data class CatPost (
     @SerializedName("breeds")
     val breeds: Breed,
     @SerializedName("categories")
-    val categories: List<Category>,
+    val categories: Category,
     @SerializedName("height")
     val height: Int,
     @SerializedName("id")
