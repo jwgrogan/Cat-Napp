@@ -19,13 +19,13 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class MainViewModel : ViewModel() {
-    private var categories = ""
     private val catApi = CatApi.create()
     private val repository = CatRepository(catApi)
     private val cats = MutableLiveData<List<CatPost>>()
     private var favCats = MutableLiveData<List<CatPost>>().apply {
         value = mutableListOf()
     }
+
     init {
         setCategories(categories)
     }
@@ -78,6 +78,7 @@ class MainViewModel : ViewModel() {
     // launch single cat image view
     companion object {
 
+        var categories = ""
         const val titleKey = "titleKey"
         const val imageURLKey = "imageURLKey"
         const val descKey = "descKey"
