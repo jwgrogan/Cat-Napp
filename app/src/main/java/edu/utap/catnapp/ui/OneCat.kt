@@ -1,5 +1,7 @@
 package edu.utap.catnapp.ui
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
@@ -17,9 +19,9 @@ class OneCat : AppCompatActivity() {
             finish()
         }
 
-        var breed = ""
-        var description = ""
-        var wikiURL = ""
+        val breed: String
+        val description: String
+        val wikiURL: String
 
         if (MainViewModel.breedFlag) {
             breed = intent.extras?.getString(MainViewModel.titleKey).toString()
@@ -34,25 +36,31 @@ class OneCat : AppCompatActivity() {
         }
 
         val imageURL = intent.extras?.getString(MainViewModel.imageURLKey)
-//        val thumbnailURL = intent.extras?.getString(MainViewModel.thumbnailURLKey)
 
-//        if (title.length > 30){
-//            onePostShortTitleTV.text = title.take(30) + "..."
-//        } else {
-//            onePostShortTitleTV.text = title
-//        }
+        if (title.length > 30){
+            oneCatBreedTV.text = breed.take(30) + "..."
+        } else {
+            oneCatBreedTV.text = breed
+        }
 
-
-
-
-        oneCatBreedTV.text = breed
         oneCatDescriptionTV.text = description
         // TODO: make wiki link clickable
         oneCatWikiTV.text = wikiURL
         Glide.with(this).load(imageURL).into(oneCatIV)
 
-//        if (thumbnailURL.takeLast(4) == ".jpg"){
-//            Glide.glideFetch(imageURL, thumbnailURL, onePostIV)
-//        }
+
+        // set up sharing
+        // https://www.tutorialspoint.com/android/android_twitter_integration.htm
+        shareBTN.setOnClickListener {
+            val sharingIntent = Intent(Intent.ACTION_SEND)
+            val imageURI = Uri.parse(imageURL)
+
+            // TODO: check if uri is valid? prob not needed
+//            val stream = contentResolver.openInputStream(imageURI)
+
+            sharingIntent.type = "image/jpeg";
+            sharingIntent.putExtra(Intent.EXTRA_STREAM, imageURI);
+            startActivity(Intent.createChooser(sharingIntent, "Share"));
+            }
     }
 }

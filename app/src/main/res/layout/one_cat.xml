@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     tools:context=".ui.OneCat">
 
     <!-- update this -->
@@ -57,5 +58,17 @@
         android:gravity="center_horizontal"
         app:layout_constraintTop_toBottomOf="@+id/scrollView"
         app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/shareBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="160sp"
+        android:layout_marginLeft="160sp"
+        android:gravity="center"
+        android:text="share"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/oneCatWikiTV" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

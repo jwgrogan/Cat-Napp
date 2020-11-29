@@ -12,7 +12,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".ui.OneCat"></activity>
+
+        <!-- facebook integration -->
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <provider android:authorities="com.facebook.app.FacebookContentProvider434938384542238"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true" />
+
+        <activity android:name=".ui.OneCat" />
         <activity android:name=".ui.SelectCats" />
         <activity android:name=".ui.FavCats" />
         <activity android:name=".MainActivity">
