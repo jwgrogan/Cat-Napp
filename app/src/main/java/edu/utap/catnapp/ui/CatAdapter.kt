@@ -21,7 +21,7 @@ class CatAdapter(private val viewModel: MainViewModel)
         // NB: This one-liner will exit the current fragment
         // (itemView.context as FragmentActivity).supportFragmentManager.popBackStack()
         private var gridPic = view.findViewById<ImageView>(R.id.gridImage)
-        private var gridText = view.findViewById<TextView>(R.id.gridText)
+        private var gridDetails = view.findViewById<TextView>(R.id.gridDetailsTV)
         private var fav = view.findViewById<ImageView>(R.id.gridFav)
 //        val subRowDetails = itemView.findViewById<TextView>(R.id.subRowDetails)
 
@@ -39,7 +39,11 @@ class CatAdapter(private val viewModel: MainViewModel)
             val imageURL = item.url
             Glide.with(itemView).load(imageURL).into(gridPic)
 
-            itemView.setOnClickListener{
+            itemView.setOnClickListener {
+                itemView.setBackgroundResource(R.drawable.image_layout)
+            }
+
+            gridDetails.setOnClickListener{
                 MainViewModel.doOneCat(itemView.context, item)
             }
 

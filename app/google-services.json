@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "806555692279",
+    "firebase_url": "https://catnapp-f6233.firebaseio.com",
+    "project_id": "catnapp-f6233",
+    "storage_bucket": "catnapp-f6233.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:806555692279:android:1d611ba7de4d3db34e37f2",
+        "android_client_info": {
+          "package_name": "edu.utap.catnapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "806555692279-91jt3nq63jj7tjql3qo7f66hudr0pqgl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCX7Ody1LfWYs283rjvuVEizkKSzd0tIW8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "806555692279-91jt3nq63jj7tjql3qo7f66hudr0pqgl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -23,6 +23,7 @@ class MainViewModel : ViewModel() {
     companion object {
         // for category selection
         var categories = ""
+        var categoryName = ""
 
         // setup for cat details activity
         const val titleKey = "titleKey"
@@ -54,6 +55,7 @@ class MainViewModel : ViewModel() {
     private var favCats = MutableLiveData<List<CatPost>>().apply {
         value = mutableListOf()
     }
+    private var selectedCat = MutableLiveData<CatPost>()
 
     init {
         setCategories(categories)
@@ -101,5 +103,15 @@ class MainViewModel : ViewModel() {
             it.remove(posts)
             favCats.value = it
         }
+    }
+
+
+    // selection functions
+    fun selectCat(cat : CatPost) {
+        selectedCat.value = cat
+    }
+
+    fun isSelected(cat: CatPost): Boolean {
+        return selectedCat.value == cat ?: false
     }
 }

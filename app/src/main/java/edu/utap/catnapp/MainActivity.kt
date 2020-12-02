@@ -11,15 +11,25 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
+import com.firebase.ui.auth.AuthUI
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.ktx.Firebase
+import edu.utap.catnapp.ui.MainViewModel
 import edu.utap.catnapp.ui.SelectCatsWrapper
+
 
 class MainActivity : AppCompatActivity() {
     // This allows us to do better testing
     companion object {
         var globalDebug = false
         const val categoryKey = "categoryKey"
+//        val categoryMap = mapOf<String, String>("Hats" to "1", "Space" to "2", "Funny" to "3", "Sunglasses" to "4", "Boxes" to "5", "Caturday" to "6", "Ties" to "7", "Dream" to "9", "Sinks" to "14", "Clothes" to "15")
     }
     private var categoryMap = mapOf<String, String>("Hats" to "1", "Space" to "2", "Funny" to "3", "Sunglasses" to "4", "Boxes" to "5", "Caturday" to "6", "Ties" to "7", "Dream" to "9", "Sinks" to "14", "Clothes" to "15")
+    private val RC_SIGN_IN = 123
 
     fun hideKeyboard() {
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
@@ -50,9 +60,38 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        }
 //    }
+
+    private fun userSignIn() {
+        val providers = arrayListOf(
+            AuthUI.IdpConfig.EmailBuilder().build()
+        )
+
+        // Create and launch sign-in intent
+        startActivityForResult(
+            AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setAvailableProviders(providers)
+                .build(),
+            RC_SIGN_IN
+        )
+
+        val user = Firebase.auth.currentUser
+        if (user != null) {
+            // User is signed in
+        } else {
+            // No user is signed in
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // sign in user with firebase
+        userSignIn()
+
+
+        // set up toolbar
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.let{
@@ -84,6 +123,9 @@ class MainActivity : AppCompatActivity() {
             val toast = Toast.makeText(this, "Choose a cat-egory!", Toast.LENGTH_LONG)
             toast.show()
         } else {
+            // save category name for title
+            MainViewModel.categoryName = spinner.getItemAtPosition(spinner.selectedItemPosition).toString()
+
             val getSelectCatsIntent = Intent(this, SelectCatsWrapper::class.java)
             val result = 1
             val myExtras = Bundle()

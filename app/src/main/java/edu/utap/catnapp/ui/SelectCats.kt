@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import edu.utap.catnapp.MainActivity
 import edu.utap.catnapp.R
 
 
@@ -148,6 +149,12 @@ class SelectCats: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val toolbarTitle = activity?.findViewById<TextView>(R.id.toolbarTitle)
+        val newTitle = "CatNapp/" + MainViewModel.categoryName
+        toolbarTitle?.text = newTitle
+
+
         val view = inflater.inflate(R.layout.fragment_select_cats, container, false)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
@@ -156,6 +163,8 @@ class SelectCats: Fragment() {
 
         adapter = CatAdapter(viewModel)
         recyclerView.adapter = adapter
+
+        viewModel.netCats()
 
         viewModel.observeCats().observe(viewLifecycleOwner, Observer {
 //            adapter.submitList(it)
@@ -168,7 +177,7 @@ class SelectCats: Fragment() {
 //        initTitleObservers()
 //        initFav()
 //        initSearch()
-        viewModel.netCats()
+
 
         // Copied from Demo
 //        viewModel.observePosts().observe(viewLifecycleOwner, Observer {

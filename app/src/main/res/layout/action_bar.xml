@@ -5,8 +5,8 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/actionTitle"
-        android:layout_width="80dp"
+        android:id="@+id/toolbarTitle"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_gravity="start|center_vertical"
@@ -16,9 +16,9 @@
         android:text="@string/app_name"/>
 
     <ImageView
+        android:id="@+id/actionFavorite"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/actionFavorite"
         android:src="@drawable/ic_favorite_black_24dp"
         />
 
