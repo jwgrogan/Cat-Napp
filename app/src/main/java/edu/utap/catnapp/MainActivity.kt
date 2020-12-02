@@ -5,18 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.FragmentTransaction
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
+import edu.utap.catnapp.ui.FavCats
 import edu.utap.catnapp.ui.MainViewModel
 import edu.utap.catnapp.ui.SelectCatsWrapper
 
@@ -65,7 +64,6 @@ class MainActivity : AppCompatActivity() {
         val providers = arrayListOf(
             AuthUI.IdpConfig.EmailBuilder().build()
         )
-
         // Create and launch sign-in intent
         startActivityForResult(
             AuthUI.getInstance()
@@ -74,12 +72,45 @@ class MainActivity : AppCompatActivity() {
                 .build(),
             RC_SIGN_IN
         )
-
         val user = Firebase.auth.currentUser
         if (user != null) {
             // User is signed in
         } else {
             // No user is signed in
+        }
+    }
+
+    // TODO: how to init favorites on the start screen
+    private fun initFavorites() {
+        val initFavorites = findViewById<ImageView>(R.id.actionFavorite)
+        initFavorites?.setOnClickListener{
+            supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.main_frame, FavCats.newInstance())
+                    .addToBackStack(null)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .commit()
+        }
+    }
+
+    private fun initSelectCats() {
+        //  XXX Write me.  Toast on empty name, otherwise launch GuessingGame
+        val content = findViewById<View>(R.id.content_main)
+        val spinner = content.findViewById<Spinner>(R.id.categorySpinner)
+
+        if (spinner.selectedItemPosition == 0) {
+            val toast = Toast.makeText(this, "Choose a cat-egory!", Toast.LENGTH_LONG)
+            toast.show()
+        } else {
+            // save category name for title
+            MainViewModel.categoryName = spinner.getItemAtPosition(spinner.selectedItemPosition).toString()
+
+            val getSelectCatsIntent = Intent(this, SelectCatsWrapper::class.java)
+            val result = 1
+            val myExtras = Bundle()
+            myExtras.putString(categoryKey, categoryMap[spinner.getItemAtPosition(spinner.selectedItemPosition).toString()])
+            getSelectCatsIntent.putExtras(myExtras)
+            startActivityForResult(getSelectCatsIntent, result)
         }
     }
 
@@ -89,6 +120,8 @@ class MainActivity : AppCompatActivity() {
 
         // sign in user with firebase
         userSignIn()
+
+        initFavorites()
 
 
         // set up toolbar
@@ -114,27 +147,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initSelectCats() {
-        //  XXX Write me.  Toast on empty name, otherwise launch GuessingGame
-        val content = findViewById<View>(R.id.content_main)
-        val spinner = content.findViewById<Spinner>(R.id.categorySpinner)
 
-        if (spinner.selectedItemPosition == 0) {
-            val toast = Toast.makeText(this, "Choose a cat-egory!", Toast.LENGTH_LONG)
-            toast.show()
-        } else {
-            // save category name for title
-            MainViewModel.categoryName = spinner.getItemAtPosition(spinner.selectedItemPosition).toString()
 
-            val getSelectCatsIntent = Intent(this, SelectCatsWrapper::class.java)
-            val result = 1
-            val myExtras = Bundle()
-            myExtras.putString(categoryKey, categoryMap[spinner.getItemAtPosition(spinner.selectedItemPosition).toString()])
-            getSelectCatsIntent.putExtras(myExtras)
-            startActivityForResult(getSelectCatsIntent, result)
-        }
-    }
-
+    // TODO: delete this?
     // NB: If you declare data: Intent, you get onActivityResult overrides nothing
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

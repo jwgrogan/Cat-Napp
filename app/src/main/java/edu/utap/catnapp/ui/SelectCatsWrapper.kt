@@ -3,6 +3,7 @@ package edu.utap.catnapp.ui
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
@@ -48,6 +49,18 @@ class SelectCatsWrapper : AppCompatActivity() {
             .commit()
     }
 
+    private fun initFavorites() {
+        val initFavorites = findViewById<ImageView>(R.id.actionFavorite)
+        initFavorites?.setOnClickListener{
+            supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.main_frame, FavCats.newInstance())
+                    .addToBackStack(null)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .commit()
+        }
+    }
+
     //    private fun initDebug() {
 //        if(globalDebug) {
 //            assets.list("")?.forEach {
@@ -70,6 +83,8 @@ class SelectCatsWrapper : AppCompatActivity() {
         supportActionBar?.let{
             initActionBar(it)
         }
+
+        initFavorites()
 
         category = intent.extras?.getString(MainActivity.categoryKey)
         MainViewModel.categories = category.toString()

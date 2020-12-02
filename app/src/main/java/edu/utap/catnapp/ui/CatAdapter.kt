@@ -1,5 +1,6 @@
 package edu.utap.catnapp.ui
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import edu.utap.catnapp.R
 import edu.utap.catnapp.api.CatPost
+import edu.utap.catnapp.firebase.CatPhoto
+import edu.utap.catnapp.firebase.Storage
 
 class CatAdapter(private val viewModel: MainViewModel)
     : RecyclerView.Adapter<CatAdapter.VH>() {
@@ -30,6 +33,23 @@ class CatAdapter(private val viewModel: MainViewModel)
         }
 
 
+        private fun initSave(item: CatPost) {
+            // Send message button
+            val catPhoto = CatPhoto().apply {
+                val cUser = MainViewModel.currentUser
+                if(cUser == null) {
+                    username = "unknown"
+                    userId = "unknown"
+                    Log.d("HomeFragment", "XXX, currentUser null!")
+                } else {
+                    username = cUser.displayName
+                    userId = cUser.uid
+                }
+
+                pictureURL = item.url
+            }
+            viewModel.savePhoto(catPhoto)
+        }
 
         fun bind(item: CatPost){
 //            if (item.url != null) {
@@ -39,27 +59,32 @@ class CatAdapter(private val viewModel: MainViewModel)
             val imageURL = item.url
             Glide.with(itemView).load(imageURL).into(gridPic)
 
-            itemView.setOnClickListener {
-                itemView.setBackgroundResource(R.drawable.image_layout)
-            }
+//            itemView.setOnClickListener {
+//                itemView.setBackgroundResource(R.drawable.image_layout)
+//            }
 
-            gridDetails.setOnClickListener{
+            itemView.setOnClickListener{
                 MainViewModel.doOneCat(itemView.context, item)
             }
 
+            // set fav heart
+            // TODO: this only works in the same session - fix
             if (viewModel.isFav(item)) {
                 fav.setImageResource(R.drawable.ic_favorite_black_24dp)
             } else {
                 fav.setImageResource(R.drawable.ic_favorite_border_black_24dp)
             }
 
+            // TODO: move this into function above
             fav.setOnClickListener{
                 if (viewModel.isFav(item)) {
                     fav.setImageResource(R.drawable.ic_favorite_border_black_24dp)
                     viewModel.removeFav(item)
+                    Storage.deleteImage(item.url)
                 } else {
                     fav.setImageResource(R.drawable.ic_favorite_black_24dp)
                     viewModel.addFav(item)
+                    initSave(item)
                 }
             }
 

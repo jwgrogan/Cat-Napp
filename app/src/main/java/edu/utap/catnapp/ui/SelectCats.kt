@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.firebase.auth.FirebaseUser
 import edu.utap.catnapp.MainActivity
 import edu.utap.catnapp.R
 
@@ -32,6 +33,8 @@ class SelectCats: Fragment() {
     private val viewModel : MainViewModel by activityViewModels()
     private lateinit var adapter : CatAdapter
 //    private lateinit var adapter: PostRowAdapter
+//    private var currentUser: FirebaseUser? = null
+
 
     companion object {
         fun newInstance(): SelectCats {
@@ -113,7 +116,7 @@ class SelectCats: Fragment() {
 //        }
 //    }
 
-    // Set up the adapter
+//     Set up the adapter
 //    private fun initAdapter(root: View) {
 //        // Copied from Demo
 //        adapter = PostRowAdapter(viewModel)
@@ -144,6 +147,24 @@ class SelectCats: Fragment() {
 //        }
 //    }
 
+    private fun initAuth() {
+        viewModel.observeFirebaseAuthLiveData().observe(viewLifecycleOwner, Observer {
+            MainViewModel.currentUser = it
+        })
+    }
+
+//    private fun initFavorites() {
+//        val initFavorites = activity?.findViewById<ImageView>(R.id.actionFavorite)
+//        initFavorites?.setOnClickListener{
+//            parentFragmentManager
+//                .beginTransaction()
+//                .replace(R.id.main_frame, FavCats.newInstance(), favoritesFragTag)
+//                .addToBackStack(null)
+//                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+//                .commit()
+//        }
+//    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -153,6 +174,9 @@ class SelectCats: Fragment() {
         val toolbarTitle = activity?.findViewById<TextView>(R.id.toolbarTitle)
         val newTitle = "CatNapp/" + MainViewModel.categoryName
         toolbarTitle?.text = newTitle
+
+        initAuth()
+//        initFavorites()
 
 
         val view = inflater.inflate(R.layout.fragment_select_cats, container, false)

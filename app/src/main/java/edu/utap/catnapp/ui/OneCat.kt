@@ -59,7 +59,8 @@ class OneCat : AppCompatActivity() {
 //            val stream = contentResolver.openInputStream(imageURI)
 
             sharingIntent.type = "image/jpeg";
-            sharingIntent.putExtra(Intent.EXTRA_STREAM, imageURI);
+            // TODO: verify if this needs to be uri or url
+            sharingIntent.putExtra(Intent.EXTRA_STREAM, imageURL);
             startActivity(Intent.createChooser(sharingIntent, "Share"));
             }
     }
