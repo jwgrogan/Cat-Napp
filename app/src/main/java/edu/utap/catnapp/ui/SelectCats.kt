@@ -132,17 +132,14 @@ class SelectCats: Fragment() {
 //            })
 //    }
 
-//    private fun initSwipeLayout(root: View) {
-//        // Copied from Demo
-//        swipe = root.findViewById(R.id.swipeRefreshLayout)
-//        swipe.setOnRefreshListener {
-//            if (viewModel.getSearchTerm().isNullOrEmpty()) {
-//                viewModel.netPosts()
-//            } else {
-//                swipe.isRefreshing = false
-//            }
-//        }
-//    }
+    private fun initSwipeLayout(root: View) {
+        // Copied from Demo
+        swipe = root.findViewById(R.id.swipeRefreshLayout)
+        swipe.setOnRefreshListener {
+                viewModel.netCats()
+                swipe.isRefreshing = false
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -172,7 +169,7 @@ class SelectCats: Fragment() {
         })
 
 
-//        initSwipeLayout(view)
+        initSwipeLayout(view)
 //        initAdapter(view)
 //        initTitleObservers()
 //        initFav()
