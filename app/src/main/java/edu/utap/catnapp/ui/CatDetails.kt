@@ -51,17 +51,31 @@ class CatDetails : AppCompatActivity() {
 
         // set up sharing
         // https://www.tutorialspoint.com/android/android_twitter_integration.htm
+//        shareBTN.setOnClickListener {
+//            val sharingIntent = Intent(Intent.ACTION_SEND)
+//            val imageURI = Uri.parse(imageURL)
+//
+//            // TODO: check if uri is valid? prob not needed
+//            val stream = contentResolver.openInputStream(imageURI)
+//
+//            sharingIntent.type = "image/jpeg";
+//            // TODO: verify if this needs to be uri or url
+//            sharingIntent.putExtra(Intent.EXTRA_STREAM, imageURI);
+//            startActivity(Intent.createChooser(sharingIntent, "Share"));
+//            }
+
         shareBTN.setOnClickListener {
-            val sharingIntent = Intent(Intent.ACTION_SEND)
+            val myIntent = Intent()
+            myIntent.action = Intent.ACTION_SEND
+            myIntent.type = "image/jpeg";
+//            val shareBody = "Your body is here";
+//            val shareSub = "Your subject";
+//            myIntent.putExtra(Intent.EXTRA_SUBJECT, shareSub);
+//            myIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
             val imageURI = Uri.parse(imageURL)
-
-            // TODO: check if uri is valid? prob not needed
-            val stream = contentResolver.openInputStream(imageURI)
-
-            sharingIntent.type = "image/jpeg";
-            // TODO: verify if this needs to be uri or url
-            sharingIntent.putExtra(Intent.EXTRA_STREAM, imageURI);
-            startActivity(Intent.createChooser(sharingIntent, "Share"));
-            }
+//            val stream = contentResolver.openInputStream(imageURI)
+            myIntent.putExtra(Intent.EXTRA_STREAM, imageURI)
+            startActivity(Intent.createChooser(myIntent, "Share using"));
+        }
     }
 }
