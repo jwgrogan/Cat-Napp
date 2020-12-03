@@ -173,12 +173,11 @@ class MainViewModel : ViewModel() {
             .addOnSuccessListener { documentReference ->
                 Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
 
-                db.collection("globalChat").document(documentReference.id)
-                    .update("rowID", documentReference.id)
+                db.collection("globalCats").document(documentReference.id)
+                    .update("rowId", documentReference.id)
                     .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
                     .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
 
-                catPhoto.rowID = documentReference.toString()
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error adding document", e)
@@ -187,19 +186,19 @@ class MainViewModel : ViewModel() {
 
     fun deletePhoto(catPhoto: CatPhoto){
         // Delete picture (if any) on the server, asynchronously
-        val url = catPhoto.pictureURL
+//        val url = catPhoto.pictureURL
         // TODO: remove if check
-        if (url != null) {
-            Storage.deleteImage(url)
-        }
-        Log.d(javaClass.simpleName, "remote chatRow id: ${catPhoto.rowID}")
+//        if (url != null) {
+//            Storage.deleteImage(url)
+//        }
+        Log.d(javaClass.simpleName, "remote chatRow id: ${catPhoto.rowId}")
 
         // XXX delete chatRow
-        db.collection("globalCats").document(catPhoto.rowID).delete()
+        db.collection("globalCats").document(catPhoto.rowId).delete()
             .addOnSuccessListener {
                 Log.d(
                     javaClass.simpleName,
-                    "Chat delete \"${catPhoto.description}\" id: ${catPhoto.rowID}"
+                    "Chat delete \"${catPhoto.description}\" id: ${catPhoto.rowId}"
                 )
                 getPhotos()
             }

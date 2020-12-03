@@ -25,7 +25,7 @@
         android:textSize="18sp"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:text="CatNapp"/>
+        android:text=""/>
 
     <ImageView
         android:id="@+id/actionFavorite"

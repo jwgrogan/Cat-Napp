@@ -26,6 +26,9 @@
     <include
         android:id="@+id/content_main"
         layout="@layout/content_main" />
+    <include
+        android:id="@+id/select_cats_wrapper_content"
+        layout="@layout/select_cats_wrapper_content" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

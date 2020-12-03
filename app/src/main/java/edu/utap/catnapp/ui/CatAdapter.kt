@@ -11,6 +11,7 @@ import edu.utap.catnapp.R
 import edu.utap.catnapp.api.CatPost
 import edu.utap.catnapp.firebase.CatPhoto
 import edu.utap.catnapp.firebase.Storage
+import java.io.File
 
 class CatAdapter(private val viewModel: MainViewModel)
     : RecyclerView.Adapter<CatAdapter.VH>() {
@@ -26,7 +27,6 @@ class CatAdapter(private val viewModel: MainViewModel)
 
 
         private fun initSave(item: CatPost) {
-            // Send message button
             val catPhoto = CatPhoto().apply {
                 val cUser = MainViewModel.currentUser
                 if(cUser == null) {
@@ -41,11 +41,20 @@ class CatAdapter(private val viewModel: MainViewModel)
                 pictureURL = item.url
             }
             viewModel.savePhoto(catPhoto)
+            // TODO: maybe implement photo upload to storage
+//            val localPhotoFile = File(storageDir, "${pictureURL}.jpg")
+//            Storage.uploadImage(localPhotoFile, pictureUUID) {
+//                Log.d(javaClass.simpleName, "uploadImage callback ${pictureUUID}")
+//                photoSuccess(pictureUUID)
+//                photoSuccess = ::defaultPhoto
+////            state.get<(String)->Unit>(photoSuccessKey)?.invoke(pictureUUID)
+////            state.set(photoSuccessKey, ::defaultPhoto)
+//                state.set(pictureUUIDKey, "")
         }
 
         fun bind(item: CatPost){
             viewModel.getPhotos()
-            var photos = viewModel.observePhotos()
+            var photos = viewModel.observePhotos().value
 
             val imageURL = item.url
             Glide.with(itemView).load(imageURL).into(gridPic)
@@ -59,19 +68,38 @@ class CatAdapter(private val viewModel: MainViewModel)
 //            if (photos.contains(item)) {
 //
 //            }
-            if (viewModel.isFav(item)) {
-                fav.setImageResource(R.drawable.ic_favorite_black_24dp)
-            } else {
-                fav.setImageResource(R.drawable.ic_favorite_border_black_24dp)
+
+            if (photos != null) {
+                for (photo in photos) {
+                    if (item.url == photo.pictureURL) {
+                        fav.setImageResource(R.drawable.ic_favorite_black_24dp)
+                    } else {
+                        fav.setImageResource(R.drawable.ic_favorite_border_black_24dp)
+                    }
+
+                }
             }
+//            if (viewModel.isFav(item)) {
+//                fav.setImageResource(R.drawable.ic_favorite_black_24dp)
+//            } else {
+//                fav.setImageResource(R.drawable.ic_favorite_border_black_24dp)
+//            }
 
             // TODO: move this into function above
             fav.setOnClickListener{
-                if (viewModel.isFav(item)) {
+                if (viewModel.isFav(item)) { // if fave, clicking removes favorite and deletes from firestore
                     fav.setImageResource(R.drawable.ic_favorite_border_black_24dp)
                     viewModel.removeFav(item)
-                    Storage.deleteImage(item.url)
-                } else {
+                    if (photos != null) {
+                        for (photo in photos) {
+                            if (item.url == photo.pictureURL) {
+                                viewModel.deletePhoto(photo)
+                            }
+
+                        }
+                    }
+                }
+                else { // else add to firestore
                     fav.setImageResource(R.drawable.ic_favorite_black_24dp)
                     viewModel.addFav(item)
                     initSave(item)

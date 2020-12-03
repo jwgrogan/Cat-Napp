@@ -52,12 +52,18 @@ class FavCats : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val toolbarTitle = activity?.findViewById<TextView>(R.id.toolbarTitle)
-        val newTitle = "CatNapp/Favorites"
-        toolbarTitle?.text = newTitle
+//        val toolbarTitle = activity?.findViewById<TextView>(R.id.toolbarTitle)
+//        val newTitle = "CatNapp/Favorites"
+//        toolbarTitle?.text = newTitle
+//        cancelClick()
+
+//        initAuth()
+        // TODO: add favorits label bar
 
         val view = inflater.inflate(R.layout.fragment_past_cats, container, false)
         initAdapter(view)
+
+//        viewModel.getPhotos()
 
         viewModel.observePhotos().observe(viewLifecycleOwner, Observer {
             adapter.notifyDataSetChanged()

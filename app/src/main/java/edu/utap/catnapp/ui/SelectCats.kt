@@ -66,13 +66,16 @@ class SelectCats: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        // set username in toolbar
         val toolbarUsername = activity?.findViewById<TextView>(R.id.toolbarUsername)
         val username = "Hi, " + Firebase.auth.currentUser?.displayName.toString()
         toolbarUsername?.text = username
 
-        val toolbarTitle = activity?.findViewById<TextView>(R.id.toolbarTitle)
-        val newTitle = "CatNapp/" + MainViewModel.categoryName
-        toolbarTitle?.text = newTitle
+        // set category title
+        val categoryTV = activity?.findViewById<TextView>(R.id.categoryTV)
+        if (categoryTV != null) {
+            categoryTV.text = MainViewModel.categoryName
+        }
 
         initAuth()
 //        initFavorites()

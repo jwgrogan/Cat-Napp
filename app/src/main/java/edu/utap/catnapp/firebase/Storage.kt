@@ -8,6 +8,7 @@ import com.google.firebase.storage.StorageReference
 import java.io.File
 
 // Store files in firebase storage
+// TODO: prob don't need if aren't storing images
 object Storage {
     private val photoStorage: StorageReference = FirebaseStorage.getInstance().reference.child("cats")
 

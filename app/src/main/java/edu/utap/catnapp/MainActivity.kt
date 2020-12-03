@@ -56,12 +56,12 @@ class MainActivity : AppCompatActivity() {
                 .build(),
             RC_SIGN_IN
         )
-        val user = Firebase.auth.currentUser
-        if (user != null) {
-            // User is signed in
-        } else {
-            // No user is signed in
-        }
+//        val user = Firebase.auth.currentUser
+//        if (user != null) {
+//            // User is signed in
+//        } else {
+//            // No user is signed in
+//        }
     }
 
 
@@ -103,11 +103,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // sign in user with firebase
-        userSignIn()
-
-        initFavorites()
-
+        // sign in user with firebase if no user
+        if (Firebase.auth.currentUser == null) {
+            userSignIn()
+        }
 
         // set up toolbar
         val toolbar: Toolbar = findViewById(R.id.toolbar)
@@ -115,10 +114,15 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.let{
             initActionBar(it)
         }
+
+        initFavorites()
+
+        // display username
         val toolbarUsername = findViewById<TextView>(R.id.toolbarUsername)
         val username = Firebase.auth.currentUser?.displayName
         toolbarUsername?.text = "Hi, " + username.toString()
 
+        // set up spinner
         val content = findViewById<View>(R.id.content_main)
         val spinner = content.findViewById<Spinner>(R.id.categorySpinner)
         val categoryTypeAdapter = ArrayAdapter.createFromResource(this,
