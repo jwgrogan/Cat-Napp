@@ -6,33 +6,27 @@
     android:orientation="vertical"
     android:background="#FFFFFFFF">
 
-<!--    <androidx.appcompat.widget.Toolbar-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="?attr/actionBarSize"-->
-<!--        android:id="@+id/toolbarOnePost"-->
-<!--        android:background="@color/colorPrimary"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:popupTheme="@style/AppTheme.PopupOverlay"-->
-<!--        >-->
-<!--    </androidx.appcompat.widget.Toolbar>-->
-
-    <Button
-        android:id="@+id/selectCat"
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:gravity="center_horizontal"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:text="select this cat!" />
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/toolbarOnePost"
+        android:background="@color/purple_500"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        >
 
-    <Button
-        android:id="@+id/randomCat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textAlignment="center"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:text="they're all so great...choose for me!"/>
+        <TextView
+            android:id="@+id/categoryTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textAlignment="center"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:text="Category"
+            android:textSize="18sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"/>
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"

@@ -115,15 +115,23 @@ class FirestoreAdapter(private val viewModel: MainViewModel)
 
 //            if (item == null) return
             if (viewModel.myUid() == item.userId) {
-                itemView.setOnLongClickListener {
-                    viewModel.deletePhoto(item)
-                    true
-                }
+
+//                itemView.setOnLongClickListener {
+//                    viewModel.deletePhoto(item)
+//                    true
+//                }
 
 //                val imageURL = item?.pictureURL
 //                Glide.with(itemView).load(imageURL).into(gridPic)
 
                 item.pictureURL?.let { Glide.with(itemView).load(it).into(gridPic) }
+                fav.setImageResource(R.drawable.ic_favorite_black_24dp)
+
+                // delete from favs if user clicks heart
+                fav.setOnClickListener {
+                    fav.setImageResource(R.drawable.ic_favorite_border_black_24dp)
+                    viewModel.deletePhoto(item)
+                }
 
                 // XXX Write me, bind picIV using pictureUUID.
 //                if (item.pictureURL != "") {
@@ -135,7 +143,11 @@ class FirestoreAdapter(private val viewModel: MainViewModel)
             else {
                 gridPic.visibility = View.GONE
 //                gridDetails.visibility = View.GONE
-                fav.visibility = View.GONE        }
+                fav.visibility = View.GONE
+//                viewModel.deletePhoto(item)
+
+
+            }
         }
     }
 

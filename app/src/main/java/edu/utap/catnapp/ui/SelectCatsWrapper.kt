@@ -23,10 +23,10 @@ class SelectCatsWrapper : AppCompatActivity() {
     private lateinit var selectCats: SelectCats
     private var category: String? = null
 
-    fun hideKeyboard() {
-        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(window.decorView.rootView.windowToken, 0);
-    }
+//    fun hideKeyboard() {
+//        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+//        imm.hideSoftInputFromWindow(window.decorView.rootView.windowToken, 0);
+//    }
 
     // https://stackoverflow.com/questions/24838155/set-onclick-listener-on-action-bar-title-in-android/29823008#29823008
     private fun initActionBar(actionBar: ActionBar) {
