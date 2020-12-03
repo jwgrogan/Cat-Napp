@@ -8,28 +8,7 @@ import com.bumptech.glide.Glide
 import edu.utap.catnapp.R
 import kotlinx.android.synthetic.main.one_cat.*
 
-/*
-Button button;
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(Intent.ACTION_SEND);
-                myIntent.setType("text/plain");
-                String shareBody = "Your body is here";
-                String shareSub = "Your subject";
-                myIntent.putExtra(Intent.EXTRA_SUBJECT, shareBody);
-                myIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
-                startActivity(Intent.createChooser(myIntent, "Share using"));
-            }
-        });
- */
-
-class OneCat : AppCompatActivity() {
+class CatDetails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.one_cat)

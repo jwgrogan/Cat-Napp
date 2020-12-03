@@ -60,7 +60,7 @@ class CatAdapter(private val viewModel: MainViewModel)
             Glide.with(itemView).load(imageURL).into(gridPic)
 
             itemView.setOnClickListener{
-                MainViewModel.doOneCat(itemView.context, item)
+                MainViewModel.detailsCatPost(itemView.context, item)
             }
 
             // set fav heart
