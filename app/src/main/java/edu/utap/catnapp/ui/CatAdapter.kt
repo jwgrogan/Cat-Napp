@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import edu.utap.catnapp.R
 import edu.utap.catnapp.api.CatPost
 import edu.utap.catnapp.firebase.CatPhoto
@@ -57,7 +59,8 @@ class CatAdapter(private val viewModel: MainViewModel)
             var photos = viewModel.observePhotos().value
 
             val imageURL = item.url
-            Glide.with(itemView).load(imageURL).into(gridPic)
+            val glideOptions = RequestOptions().transform(RoundedCorners(20))
+            Glide.with(itemView).load(imageURL).apply(glideOptions).override(480, 320).into(gridPic)
 
             itemView.setOnClickListener{
                 MainViewModel.detailsCatPost(itemView.context, item)

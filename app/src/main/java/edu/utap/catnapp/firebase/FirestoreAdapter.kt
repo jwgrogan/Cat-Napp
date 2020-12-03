@@ -13,6 +13,8 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import edu.utap.catnapp.R
 import edu.utap.catnapp.ui.CatAdapter
 import edu.utap.catnapp.ui.MainViewModel
@@ -44,10 +46,11 @@ class FirestoreAdapter(private val viewModel: MainViewModel)
                     MainViewModel.detailsCatPhoto(itemView.context, item)
                 }
 
-//                val imageURL = item?.pictureURL
-//                Glide.with(itemView).load(imageURL).into(gridPic)
+                val imageURL = item.pictureURL
+                val glideOptions = RequestOptions().transform(RoundedCorners(20))
+                Glide.with(itemView).load(imageURL).apply(glideOptions).override(480, 320).into(gridPic)
 
-                item.pictureURL?.let { Glide.with(itemView).load(it).into(gridPic) }
+//                item.pictureURL?.let { Glide.with(itemView).load(it).into(gridPic) }
                 fav.setImageResource(R.drawable.ic_favorite_black_24dp)
 
                 // delete from favs if user clicks heart
