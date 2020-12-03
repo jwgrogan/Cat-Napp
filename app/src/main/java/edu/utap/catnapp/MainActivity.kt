@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private var categoryMap = mapOf<String, String>("Hats" to "1", "Space" to "2", "Funny" to "3", "Sunglasses" to "4", "Boxes" to "5", "Caturday" to "6", "Ties" to "7", "Dream" to "9", "Sinks" to "14", "Clothes" to "15")
     private val RC_SIGN_IN = 123
 
+
     fun hideKeyboard() {
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(window.decorView.rootView.windowToken, 0);
@@ -79,6 +80,8 @@ class MainActivity : AppCompatActivity() {
             // No user is signed in
         }
     }
+
+
 
     // TODO: how to init favorites on the start screen
     private fun initFavorites() {
@@ -130,6 +133,9 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.let{
             initActionBar(it)
         }
+        val toolbarUsername = findViewById<TextView>(R.id.toolbarUsername)
+        val username = Firebase.auth.currentUser?.displayName
+        toolbarUsername?.text = "Hi, " + username.toString()
 
         val content = findViewById<View>(R.id.content_main)
         val spinner = content.findViewById<Spinner>(R.id.categorySpinner)

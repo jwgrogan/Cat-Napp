@@ -57,7 +57,7 @@ class FirestoreAdapter(private val viewModel: MainViewModel)
 //        private var otherPicIV = itemView.findViewById<ImageView>(R.id.otherPicIV)
 
         private var gridPic = view.findViewById<ImageView>(R.id.gridImage)
-        private var gridDetails = view.findViewById<TextView>(R.id.gridDetailsTV)
+//        private var gridDetails = view.findViewById<TextView>(R.id.gridDetailsTV)
         private var fav = view.findViewById<ImageView>(R.id.gridFav)
 
         init {
@@ -134,7 +134,7 @@ class FirestoreAdapter(private val viewModel: MainViewModel)
             }
             else {
                 gridPic.visibility = View.GONE
-                gridDetails.visibility = View.GONE
+//                gridDetails.visibility = View.GONE
                 fav.visibility = View.GONE        }
         }
     }

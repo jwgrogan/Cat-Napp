@@ -34,6 +34,7 @@ class MainViewModel : ViewModel() {
         const val pictureURLKey = "pictureUUIDKey"
         var currentUser: FirebaseUser? = null
 
+
         // for category selection
         var categories = ""
         var categoryName = ""

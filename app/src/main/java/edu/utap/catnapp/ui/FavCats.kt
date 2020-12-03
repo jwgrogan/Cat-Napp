@@ -22,7 +22,7 @@ class FavCats : Fragment() {
     // XXX initialize viewModel
     private val viewModel : MainViewModel by activityViewModels()
     private lateinit var adapter : FirestoreAdapter
-//    private var currentUser: FirebaseUser? = null
+    private var currentUser: FirebaseUser? = null
     private var fragmentUUID: String? = null
 
     companion object {
@@ -42,13 +42,14 @@ class FavCats : Fragment() {
     // TODO: need this if get the main screen favs working
     private fun initAuth() {
         viewModel.observeFirebaseAuthLiveData().observe(viewLifecycleOwner, Observer {
-            MainViewModel.currentUser = it
+            currentUser = it
+            MainViewModel.currentUser = currentUser
         })
     }
 
     private fun initAdapter(view: View) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.favRecyclerView)
-        val gridLayoutManager = GridLayoutManager(context, 3)
+        val gridLayoutManager = GridLayoutManager(context, 2)
         recyclerView.layoutManager = gridLayoutManager
 
         adapter = FirestoreAdapter(viewModel)

@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import edu.utap.catnapp.MainActivity
 import edu.utap.catnapp.R
 
@@ -33,7 +35,7 @@ class SelectCats: Fragment() {
     private val viewModel : MainViewModel by activityViewModels()
     private lateinit var adapter : CatAdapter
 //    private lateinit var adapter: PostRowAdapter
-//    private var currentUser: FirebaseUser? = null
+    private var currentUser: FirebaseUser? = null
 
 
     companion object {
@@ -146,7 +148,8 @@ class SelectCats: Fragment() {
 
     private fun initAuth() {
         viewModel.observeFirebaseAuthLiveData().observe(viewLifecycleOwner, Observer {
-            MainViewModel.currentUser = it
+            currentUser = it
+            MainViewModel.currentUser = currentUser
         })
     }
 
@@ -168,6 +171,10 @@ class SelectCats: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        val toolbarUsername = activity?.findViewById<TextView>(R.id.toolbarUsername)
+        val username = "Hi, " + Firebase.auth.currentUser?.displayName.toString()
+        toolbarUsername?.text = username
+
         val toolbarTitle = activity?.findViewById<TextView>(R.id.toolbarTitle)
         val newTitle = "CatNapp/" + MainViewModel.categoryName
         toolbarTitle?.text = newTitle
@@ -179,7 +186,7 @@ class SelectCats: Fragment() {
         val view = inflater.inflate(R.layout.fragment_select_cats, container, false)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
-        val gridLayoutManager = GridLayoutManager(context, 3)
+        val gridLayoutManager = GridLayoutManager(context, 2)
         recyclerView.layoutManager = gridLayoutManager
 
         adapter = CatAdapter(viewModel)

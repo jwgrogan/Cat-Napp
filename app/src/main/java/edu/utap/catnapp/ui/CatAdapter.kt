@@ -24,7 +24,7 @@ class CatAdapter(private val viewModel: MainViewModel)
         // NB: This one-liner will exit the current fragment
         // (itemView.context as FragmentActivity).supportFragmentManager.popBackStack()
         private var gridPic = view.findViewById<ImageView>(R.id.gridImage)
-        private var gridDetails = view.findViewById<TextView>(R.id.gridDetailsTV)
+//        private var gridDetails = view.findViewById<TextView>(R.id.gridDetailsTV)
         private var fav = view.findViewById<ImageView>(R.id.gridFav)
 //        val subRowDetails = itemView.findViewById<TextView>(R.id.subRowDetails)
 
@@ -55,6 +55,9 @@ class CatAdapter(private val viewModel: MainViewModel)
 //            if (item.url != null) {
 //                Glide.glideFetch(item.iconURL, item.iconURL, subRowPic)
 //            }
+            // populate photos with stored favorites
+            viewModel.getPhotos()
+            var photos = viewModel.observePhotos()
 
             val imageURL = item.url
             Glide.with(itemView).load(imageURL).into(gridPic)
@@ -69,6 +72,9 @@ class CatAdapter(private val viewModel: MainViewModel)
 
             // set fav heart
             // TODO: this only works in the same session - fix
+//            if (photos.contains(item)) {
+//
+//            }
             if (viewModel.isFav(item)) {
                 fav.setImageResource(R.drawable.ic_favorite_black_24dp)
             } else {

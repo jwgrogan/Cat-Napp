@@ -16,7 +16,7 @@ import retrofit2.http.Query
 import java.lang.reflect.Type
 
 interface CatApi {
-    @GET("/v1/images/search?limit=9")
+    @GET("/v1/images/search?limit=10")
     suspend fun getNineCats(@Query("category_ids") categories: String, @Header("x-api-key") key: String) : List<CatPost>
 
 
