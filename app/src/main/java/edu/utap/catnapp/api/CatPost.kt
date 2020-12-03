@@ -54,8 +54,8 @@ data class Breed (
     @SerializedName("origin")
     val origin: String,
     // TODO: weight is an array, fix
-    @SerializedName("weight_imperial")
-    val weight_imperial: String,
+    @SerializedName("weight")
+    val weight: List<Weight>,
     @SerializedName("experimental")
     val experimental: Int,
     @SerializedName("hairless")
@@ -66,8 +66,8 @@ data class Breed (
     val rare: Int,
     @SerializedName("rex")
     val rex: Int,
-    @SerializedName("suppress_tail")
-    val suppress_tail: Int,
+    @SerializedName("suppressed_tail")
+    val suppressed_tail: Int,
     @SerializedName("short_legs")
     val short_legs: Int,
     @SerializedName("hypoallergenic")
@@ -97,5 +97,24 @@ data class Breed (
     @SerializedName("stranger_friendly")
     val stranger_friendly: Int,
     @SerializedName("vocalisation")
-    val vocalisation: Int
+    val vocalisation: Int,
+    @SerializedName("cfa_url")
+    val cfa_url: String,
+    @SerializedName("country_codes")
+    val country_codes: String,
+    @SerializedName("indoor")
+    val indoor: Int,
+    @SerializedName("lap")
+    val lap: Int,
+    @SerializedName("vcahospitals_url")
+    val vcahospitals_url: String,
+    @SerializedName("vetstreet_url")
+    val vetstreet_url: String
+)
+
+data class Weight (
+    @SerializedName("imperial")
+    val imperial: String,
+    @SerializedName("metric")
+    val metric: String
 )
