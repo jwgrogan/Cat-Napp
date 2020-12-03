@@ -89,10 +89,9 @@ class OneCat : AppCompatActivity() {
             val myIntent = Intent()
             myIntent.action = Intent.ACTION_SEND
             myIntent.type = "image/jpeg";
-//            val shareBody = "Your body is here";
 //            val shareSub = "Your subject";
 //            myIntent.putExtra(Intent.EXTRA_SUBJECT, shareSub);
-//            myIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+            myIntent.putExtra(Intent.EXTRA_TEXT, imageURL);
             val imageURI = Uri.parse(imageURL)
 //            val stream = contentResolver.openInputStream(imageURI)
             myIntent.putExtra(Intent.EXTRA_STREAM, imageURI)
