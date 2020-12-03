@@ -19,7 +19,6 @@ import edu.utap.catnapp.api.CatPost
 import edu.utap.catnapp.api.CatRepository
 import edu.utap.catnapp.firebase.CatPhoto
 import edu.utap.catnapp.firebase.FirestoreAuthLiveData
-import edu.utap.catnapp.firebase.Storage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -43,17 +42,36 @@ class MainViewModel : ViewModel() {
         const val wikiURLKey = "wikiURLKey"
         var breedFlag = false
 
-        fun doOneCat(context: Context, catPost: CatPost) {
-            val intent = Intent(context, OneCat::class.java)
+        fun detailsCatPost(context: Context, catPost: CatPost) {
+            val intent = Intent(context, CatDetails::class.java)
             val data = Bundle()
-            // TODO: link to xml
             if (catPost.breeds != emptyList<Breed>()) {
                 data.putString(titleKey, catPost.breeds[0].name)
                 data.putString(descKey, catPost.breeds[0].description)
                 data.putString(wikiURLKey, catPost.breeds[0].wikipedia_url)
                 breedFlag = true
+            } else {
+                breedFlag = false
             }
+
             data.putString(imageURLKey, catPost.url)
+
+            intent.putExtras(data)
+            startActivity(context, intent, data)
+        }
+
+        fun detailsCatPhoto(context: Context, catPhoto: CatPhoto) {
+            val intent = Intent(context, CatDetails::class.java)
+            val data = Bundle()
+            if (catPhoto.breed != null) {
+                data.putString(titleKey, catPhoto.breed)
+                data.putString(descKey, catPhoto.description)
+//                data.putString(wikiURLKey, catPhoto.breeds[0].wikipedia_url)
+                breedFlag = true
+            } else {
+                breedFlag = false
+            }
+            data.putString(imageURLKey, catPhoto.pictureURL)
 
             intent.putExtras(data)
             startActivity(context, intent, data)

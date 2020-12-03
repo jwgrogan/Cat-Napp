@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import edu.utap.catnapp.R
 import kotlinx.android.synthetic.main.one_cat.*
 
-class OneCat : AppCompatActivity() {
+class CatDetails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.one_cat)

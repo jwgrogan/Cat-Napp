@@ -25,7 +25,7 @@ class FirestoreAdapter(private val viewModel: MainViewModel)
         private var fav = view.findViewById<ImageView>(R.id.gridFav)
 
         init {
-            itemView.isLongClickable = true
+//            itemView.isLongClickable = true
         }
 
         fun bind(item: CatPhoto) {
@@ -40,6 +40,9 @@ class FirestoreAdapter(private val viewModel: MainViewModel)
 //                    viewModel.deletePhoto(item)
 //                    true
 //                }
+                itemView.setOnClickListener{
+                    MainViewModel.detailsCatPhoto(itemView.context, item)
+                }
 
 //                val imageURL = item?.pictureURL
 //                Glide.with(itemView).load(imageURL).into(gridPic)
