@@ -5,13 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-//import com.google.android.gms.auth.api.signin.internal.Storage
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -24,7 +22,6 @@ import edu.utap.catnapp.firebase.FirestoreAuthLiveData
 import edu.utap.catnapp.firebase.Storage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
 
 class MainViewModel : ViewModel() {
 
@@ -213,19 +210,14 @@ class MainViewModel : ViewModel() {
 
     fun getPhotos() {
         if (FirebaseAuth.getInstance().currentUser == null) {
-//            Log.d(javaClass.simpleName, "Can't get chat, no one is logged in")
             photos.value = listOf()
             return
         } else {
-            // XXX Write me.  Limit total number of chat rows to 100
-//            val chatRef = db.collection("globalCats").orderBy("timeStamp").limit(100)
             val photoRef = db.collection("globalCats").orderBy("timeStamp") // return all cats
             photoRef.addSnapshotListener { querySnapshot, ex ->
                 if (ex != null) {
-//                    Log.w(MainActivity.TAG, "listen:error", ex)
                     return@addSnapshotListener
                 }
-//                Log.d(MainActivity.TAG, "fetch ${querySnapshot!!.documents.size}")
                 if (querySnapshot != null) {
                     photos.value = querySnapshot.documents.mapNotNull {
                         it.toObject(CatPhoto::class.java)

@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -14,12 +12,6 @@ import edu.utap.catnapp.MainActivity
 import edu.utap.catnapp.R
 
 class SelectCatsWrapper : AppCompatActivity() {
-    // This allows us to do better testing
-    companion object {
-        var globalDebug = false
-        lateinit var jsonAww100: String
-        lateinit var subreddit1: String
-    }
     private lateinit var selectCats: SelectCats
     private var category: String? = null
 
@@ -61,19 +53,6 @@ class SelectCatsWrapper : AppCompatActivity() {
         }
     }
 
-    //    private fun initDebug() {
-//        if(globalDebug) {
-//            assets.list("")?.forEach {
-//                Log.d(javaClass.simpleName, "Asset file: $it" )
-//            }
-//            jsonAww100 = assets.open("aww.hot.1.100.json.transformed.txt").bufferedReader().use {
-//                it.readText()
-//            }
-//            subreddit1 = assets.open("subreddits.1.json.txt").bufferedReader().use {
-//                it.readText()
-//            }
-//        }
-//    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.select_cats_wrapper)
@@ -89,9 +68,7 @@ class SelectCatsWrapper : AppCompatActivity() {
         category = intent.extras?.getString(MainActivity.categoryKey)
         MainViewModel.categories = category.toString()
 
-        // set up buttons for each category, init fragment for each
         selectCats = SelectCats.newInstance()
         initSelectCats()
-//        initDebug()
     }
 }
