@@ -21,11 +21,8 @@ import edu.utap.catnapp.ui.SelectCatsWrapper
 
 
 class MainActivity : AppCompatActivity() {
-    // This allows us to do better testing
     companion object {
-        var globalDebug = false
         const val categoryKey = "categoryKey"
-//        val categoryMap = mapOf<String, String>("Hats" to "1", "Space" to "2", "Funny" to "3", "Sunglasses" to "4", "Boxes" to "5", "Caturday" to "6", "Ties" to "7", "Dream" to "9", "Sinks" to "14", "Clothes" to "15")
     }
     private var categoryMap = mapOf<String, String>("Hats" to "1", "Space" to "2", "Funny" to "3", "Sunglasses" to "4", "Boxes" to "5", "Caturday" to "6", "Ties" to "7", "Dream" to "9", "Sinks" to "14", "Clothes" to "15")
     private val RC_SIGN_IN = 123
@@ -46,20 +43,6 @@ class MainActivity : AppCompatActivity() {
         // Apply the custom view
         actionBar.customView = customView
     }
-
-//    private fun initDebug() {
-//        if(globalDebug) {
-//            assets.list("")?.forEach {
-//                Log.d(javaClass.simpleName, "Asset file: $it" )
-//            }
-//            jsonAww100 = assets.open("aww.hot.1.100.json.transformed.txt").bufferedReader().use {
-//                it.readText()
-//            }
-//            subreddit1 = assets.open("subreddits.1.json.txt").bufferedReader().use {
-//                it.readText()
-//            }
-//        }
-//    }
 
     private fun userSignIn() {
         val providers = arrayListOf(
@@ -97,7 +80,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initSelectCats() {
-        //  XXX Write me.  Toast on empty name, otherwise launch GuessingGame
         val content = findViewById<View>(R.id.content_main)
         val spinner = content.findViewById<Spinner>(R.id.categorySpinner)
 
@@ -145,8 +127,6 @@ class MainActivity : AppCompatActivity() {
         categoryTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = categoryTypeAdapter
 
-        // set up buttons for each category, init fragment for each
-//        initDebug()
         val button = content.findViewById<Button>(R.id.friendButton)
         button?.setOnClickListener {
             initSelectCats()
