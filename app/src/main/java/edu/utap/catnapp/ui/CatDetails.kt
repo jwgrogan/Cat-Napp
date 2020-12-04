@@ -6,12 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
 import edu.utap.catnapp.R
-import kotlinx.android.synthetic.main.one_cat.*
+import kotlinx.android.synthetic.main.cat_details.*
 
 class CatDetails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.one_cat)
+        setContentView(R.layout.cat_details)
 
         setSupportActionBar(oneCatToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -30,8 +30,8 @@ class CatDetails : AppCompatActivity() {
         }
         else {
             // TODO: make randomized list of fun cat facts
-            breed = "hmm... i'm a mystery cat!"
-            description = "i probably enjoy lazer pointerz"
+            breed = "am I your new faFURite cat??"
+            description = "i reallly enjoy lazer pointerz and promise to always be cuddly :)"
             wikiURL = ""
         }
 
@@ -47,6 +47,10 @@ class CatDetails : AppCompatActivity() {
         // TODO: make wiki link clickable
         oneCatWikiTV.text = wikiURL
         Glide.with(this).load(imageURL).into(oneCatIV)
+
+        if (MainViewModel.favFlag) {
+            detailsFav.setImageResource(R.drawable.ic_favorite_red_24dp)
+        }
 
 
         // set up sharing

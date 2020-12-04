@@ -17,6 +17,6 @@
         android:layout_margin="12dp"
         android:layout_weight="1"
         android:id="@+id/gridFav"
-        android:src="@drawable/ic_favorite_border_black_24dp"
+        android:src="@drawable/ic_favorite_border_red_24dp"
         />
 </RelativeLayout>

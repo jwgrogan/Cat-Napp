@@ -31,7 +31,7 @@ class MainViewModel : ViewModel() {
 
         // for firestore
         const val pictureURLKey = "pictureUUIDKey"
-        var currentUser: FirebaseUser? = null
+//        var currentUser: FirebaseUser? = null
         var photos = MutableLiveData<List<CatPhoto>>()
 
         // clear photos on sign out
@@ -50,7 +50,9 @@ class MainViewModel : ViewModel() {
         const val descKey = "descKey"
         const val wikiURLKey = "wikiURLKey"
         var breedFlag = false
+        var favFlag = false
 
+        // launch details from select cats
         fun detailsCatPost(context: Context, catPost: CatPost) {
             val intent = Intent(context, CatDetails::class.java)
             val data = Bundle()
@@ -63,12 +65,15 @@ class MainViewModel : ViewModel() {
                 breedFlag = false
             }
 
+
+
             data.putString(imageURLKey, catPost.url)
 
             intent.putExtras(data)
             startActivity(context, intent, data)
         }
 
+        // launch details from favorites
         fun detailsCatPhoto(context: Context, catPhoto: CatPhoto) {
             val intent = Intent(context, CatDetails::class.java)
             val data = Bundle()
@@ -80,6 +85,8 @@ class MainViewModel : ViewModel() {
             } else {
                 breedFlag = false
             }
+            favFlag = true
+
             data.putString(imageURLKey, catPhoto.pictureURL)
 
             intent.putExtras(data)
@@ -186,6 +193,10 @@ class MainViewModel : ViewModel() {
 
     fun observePhotos(): LiveData<List<CatPhoto>> {
         return photos
+    }
+
+    fun isFavPhoto(cat: CatPhoto): Boolean {
+        return photos.value?.contains(cat) ?: false
     }
 
     fun savePhoto(catPhoto: CatPhoto) {
