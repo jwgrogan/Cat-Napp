@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">CatNapp</string>
     <string name="facebook_app_id">434938384542238</string>
+    <string name="vertical_ellipsis">&#8942;</string>
+    <string name="action_sign_in">Sign In</string>
+    <string name="action_sign_out">Sign Out</string>
 </resources>

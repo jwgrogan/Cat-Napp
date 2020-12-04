@@ -15,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import edu.utap.catnapp.R
 import edu.utap.catnapp.ui.CatAdapter
 import edu.utap.catnapp.ui.MainViewModel
@@ -36,7 +39,10 @@ class FirestoreAdapter(private val viewModel: MainViewModel)
 //            Glide.with(itemView).load(imageURL).into(gridPic)
 
 //            if (item == null) return
-            if (viewModel.myUid() == item.userId) {
+            val userId = FirebaseAuth.getInstance().currentUser?.uid
+//            val userId = Firebase.auth.currentUser?.displayName
+//            if (viewModel.getUserId() == item.userId) {
+            if (userId == item.userId) {
 
 //                itemView.setOnLongClickListener {
 //                    viewModel.deletePhoto(item)

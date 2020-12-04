@@ -4,16 +4,23 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
+import android.widget.PopupMenu
+import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.FragmentTransaction
+import com.firebase.ui.auth.AuthUI
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import edu.utap.catnapp.MainActivity
 import edu.utap.catnapp.R
 
 class SelectCatsWrapper : AppCompatActivity() {
     private lateinit var selectCats: SelectCats
     private var category: String? = null
+    private val RC_SIGN_IN = 123
 
 //    fun hideKeyboard() {
 //        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
@@ -53,6 +60,58 @@ class SelectCatsWrapper : AppCompatActivity() {
         }
     }
 
+    private fun initToolbarUser() {
+        val username = Firebase.auth.currentUser?.displayName
+        val toolbarUsername = findViewById<TextView>(R.id.toolbarUsername)
+        toolbarUsername?.text = "Hi, " + username.toString()
+    }
+
+    private fun initToolbarMenu() {
+        // setup toolbar menu
+        val toolbarMenu = findViewById<TextView>(R.id.actionMenu)
+        toolbarMenu.setOnClickListener {
+            val popupMenu: PopupMenu = PopupMenu(this, toolbarMenu)
+            popupMenu.menuInflater.inflate(R.menu.popup_menu, popupMenu.menu)
+            popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
+                when(item.itemId) {
+                    R.id.actionSignIn ->
+                        signIn()
+                    R.id.actionSignOut ->
+                        signOut()
+                }
+                true
+            })
+            popupMenu.show()
+        }
+    }
+
+    private fun signIn() {
+        val providers = arrayListOf(
+                AuthUI.IdpConfig.EmailBuilder().build()
+        )
+        // Create and launch sign-in intent
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .build(),
+                RC_SIGN_IN
+        )
+    }
+
+    private fun signOut() {
+        FirebaseAuth.getInstance().signOut()
+        MainViewModel.clearPhotos()
+        val toolbarUsername = findViewById<TextView>(R.id.toolbarUsername)
+        toolbarUsername?.text = "Please sign in"
+    }
+
+    // check if user has changed
+    override fun onResume() {
+        super.onResume()
+        initToolbarUser()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.select_cats_wrapper)
@@ -63,7 +122,14 @@ class SelectCatsWrapper : AppCompatActivity() {
             initActionBar(it)
         }
 
+        initToolbarUser()
+        initToolbarMenu()
         initFavorites()
+
+//        val categoryTV = findViewById<TextView>(R.id.categoryTV)
+//        if (categoryTV != null) {
+//            categoryTV.text = MainViewModel.categoryName
+//        }
 
         category = intent.extras?.getString(MainActivity.categoryKey)
         MainViewModel.categories = category.toString()

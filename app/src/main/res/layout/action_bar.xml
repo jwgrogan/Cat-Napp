@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+
+
     <TextView
         android:id="@+id/toolbarUsername"
         android:layout_width="80dp"
@@ -18,10 +20,9 @@
         android:minEms="16"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="4"
+        android:layout_weight="3"
         android:layout_gravity="start|center_vertical"
         android:layout_margin="8dp"
-        android:padding="8dp"
         android:textSize="18sp"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
@@ -31,9 +32,18 @@
         android:id="@+id/actionFavorite"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:padding="8dp"
         android:src="@drawable/ic_favorite_black_24dp"
         />
+
+    <TextView
+        android:id="@+id/actionMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:padding="16dp"
+        android:textSize="30sp"
+        android:textColor="#FFFFFF"
+        android:text="@string/vertical_ellipsis"/>
 
 </LinearLayout>
 

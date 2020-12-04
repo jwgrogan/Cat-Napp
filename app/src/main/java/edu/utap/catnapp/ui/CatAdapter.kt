@@ -12,7 +12,7 @@ import com.bumptech.glide.request.RequestOptions
 import edu.utap.catnapp.R
 import edu.utap.catnapp.api.CatPost
 import edu.utap.catnapp.firebase.CatPhoto
-import edu.utap.catnapp.firebase.Storage
+//import edu.utap.catnapp.firebase.Storage
 import java.io.File
 
 class CatAdapter(private val viewModel: MainViewModel)
@@ -66,12 +66,7 @@ class CatAdapter(private val viewModel: MainViewModel)
                 MainViewModel.detailsCatPost(itemView.context, item)
             }
 
-            // set fav heart
-            // TODO: this only works in the same session - fix
-//            if (photos.contains(item)) {
-//
-//            }
-
+            // set fav heart //TODO: not working
             if (photos != null) {
                 for (photo in photos) {
                     if (item.url == photo.pictureURL) {
@@ -88,7 +83,7 @@ class CatAdapter(private val viewModel: MainViewModel)
 //                fav.setImageResource(R.drawable.ic_favorite_border_black_24dp)
 //            }
 
-            // TODO: move this into function above
+            // TODO: fix this and move this into function above
             fav.setOnClickListener{
                 if (viewModel.isFav(item)) { // if fave, clicking removes favorite and deletes from firestore
                     fav.setImageResource(R.drawable.ic_favorite_border_black_24dp)

@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseUser
+import edu.utap.catnapp.MainActivity
 import edu.utap.catnapp.R
 import edu.utap.catnapp.firebase.FirestoreAdapter
 
@@ -26,12 +27,12 @@ class FavCats : Fragment() {
     }
 
     // TODO: need this if get the main screen favs working
-    private fun initAuth() {
-        viewModel.observeFirebaseAuthLiveData().observe(viewLifecycleOwner, Observer {
-            currentUser = it
-            MainViewModel.currentUser = currentUser
-        })
-    }
+//    private fun initAuth() {
+//        viewModel.observeFirebaseAuthLiveData().observe(viewLifecycleOwner, Observer {
+//            currentUser = it
+//            MainViewModel.currentUser = currentUser
+//        })
+//    }
 
     private fun initAdapter(view: View) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.favRecyclerView)
@@ -52,15 +53,17 @@ class FavCats : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        // TODO: add favorits label bar
 //        val toolbarTitle = activity?.findViewById<TextView>(R.id.toolbarTitle)
-//        val newTitle = "CatNapp/Favorites"
-//        toolbarTitle?.text = newTitle
+//        toolbarTitle?.text = "Favorites"
 //        cancelClick()
 
-//        initAuth()
-        // TODO: add favorits label bar
 
-        val view = inflater.inflate(R.layout.fragment_past_cats, container, false)
+//        initAuth()
+
+
+        val view = inflater.inflate(R.layout.fragment_fav_cats, container, false)
         initAdapter(view)
 
 //        viewModel.getPhotos()

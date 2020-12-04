@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,12 +14,14 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
+import edu.utap.catnapp.R
 import edu.utap.catnapp.api.Breed
 import edu.utap.catnapp.api.CatApi
 import edu.utap.catnapp.api.CatPost
 import edu.utap.catnapp.api.CatRepository
 import edu.utap.catnapp.firebase.CatPhoto
-import edu.utap.catnapp.firebase.FirestoreAuthLiveData
+//import edu.utap.catnapp.firebase.FirestoreAuthLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -29,7 +32,13 @@ class MainViewModel : ViewModel() {
         // for firestore
         const val pictureURLKey = "pictureUUIDKey"
         var currentUser: FirebaseUser? = null
+        var photos = MutableLiveData<List<CatPhoto>>()
 
+        // clear photos on sign out
+        fun clearPhotos() {
+            photos.value = listOf()
+
+        }
 
         // for category selection
         var categories = ""
@@ -88,8 +97,9 @@ class MainViewModel : ViewModel() {
 
     // firebase vars
     private var db: FirebaseFirestore = FirebaseFirestore.getInstance()
-    private var firebaseAuthLiveData = FirestoreAuthLiveData()
-    private var photos = MutableLiveData<List<CatPhoto>>()
+//    private var firebaseAuthLiveData = FirestoreAuthLiveData()
+//    private var photos = MutableLiveData<List<CatPhoto>>()
+//    private var authListener : ListenerRegistration? = null
 
     init {
         setCategories(categories)
@@ -150,13 +160,19 @@ class MainViewModel : ViewModel() {
     }
 
     // firebase auth functions
-    fun observeFirebaseAuthLiveData(): LiveData<FirebaseUser?> {
-        return firebaseAuthLiveData
-    }
+//    fun observeFirebaseAuthLiveData(): LiveData<FirebaseUser?> {
+//        return firebaseAuthLiveData
+//    }
+//
+//    fun getUserId(): String? {
+//        return firebaseAuthLiveData.value?.uid
+//    }
 
-    fun myUid(): String? {
-        return firebaseAuthLiveData.value?.uid
-    }
+//    fun signOut() {
+//        authListener?.remove()
+//        FirebaseAuth.getInstance().signOut()
+//        photos.value = listOf()
+//    }
 
 
     // TODO: signout?
@@ -231,7 +247,8 @@ class MainViewModel : ViewModel() {
             photos.value = listOf()
             return
         } else {
-            val photoRef = db.collection("globalCats").orderBy("timeStamp") // return all cats
+//            val photoRef = db.collection("globalCats").orderBy("timeStamp") // return all cats
+            val photoRef = db.collection("globalCats")
             photoRef.addSnapshotListener { querySnapshot, ex ->
                 if (ex != null) {
                     return@addSnapshotListener

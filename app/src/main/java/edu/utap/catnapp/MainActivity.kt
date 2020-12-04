@@ -44,35 +44,15 @@ class MainActivity : AppCompatActivity() {
         actionBar.customView = customView
     }
 
-    private fun userSignIn() {
-        val providers = arrayListOf(
-            AuthUI.IdpConfig.EmailBuilder().build()
-        )
-        // Create and launch sign-in intent
-        startActivityForResult(
-            AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setAvailableProviders(providers)
-                .build(),
-            RC_SIGN_IN
-        )
-//        val user = Firebase.auth.currentUser
-//        if (user != null) {
-//            // User is signed in
-//        } else {
-//            // No user is signed in
-//        }
-    }
 
 
 
-    // TODO: how to init favorites on the start screen
     private fun initFavorites() {
         val initFavorites = findViewById<ImageView>(R.id.actionFavorite)
         initFavorites?.setOnClickListener{
             supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.main_frame, FavCats.newInstance())
+                    .add(R.id.main_frame, FavCats.newInstance())
                     .addToBackStack(null)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit()
@@ -99,13 +79,65 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun initToolbarUser() {
+        val username = Firebase.auth.currentUser?.displayName
+        val toolbarUsername = findViewById<TextView>(R.id.toolbarUsername)
+        toolbarUsername?.text = "Hi, " + username.toString()
+    }
+
+    private fun initToolbarMenu() {
+        // setup toolbar menu
+        val toolbarMenu = findViewById<TextView>(R.id.actionMenu)
+        toolbarMenu.setOnClickListener {
+            val popupMenu: PopupMenu = PopupMenu(this, toolbarMenu)
+            popupMenu.menuInflater.inflate(R.menu.popup_menu, popupMenu.menu)
+            popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
+                when(item.itemId) {
+                    R.id.actionSignIn ->
+                        signIn()
+                    R.id.actionSignOut ->
+                        signOut()
+                }
+                true
+            })
+            popupMenu.show()
+        }
+    }
+
+    private fun signIn() {
+        val providers = arrayListOf(
+                AuthUI.IdpConfig.EmailBuilder().build()
+        )
+        // Create and launch sign-in intent
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .build(),
+                RC_SIGN_IN
+        )
+    }
+
+    private fun signOut() {
+        FirebaseAuth.getInstance().signOut()
+        MainViewModel.clearPhotos()
+        val toolbarUsername = findViewById<TextView>(R.id.toolbarUsername)
+        toolbarUsername?.text = "Please sign in"
+    }
+
+    // check if user has changed and for clearing top text
+    override fun onResume() {
+        super.onResume()
+        initToolbarUser()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         // sign in user with firebase if no user
         if (Firebase.auth.currentUser == null) {
-            userSignIn()
+            signIn()
         }
 
         // set up toolbar
@@ -115,12 +147,9 @@ class MainActivity : AppCompatActivity() {
             initActionBar(it)
         }
 
+        initToolbarUser()
+        initToolbarMenu()
         initFavorites()
-
-        // display username
-        val toolbarUsername = findViewById<TextView>(R.id.toolbarUsername)
-        val username = Firebase.auth.currentUser?.displayName
-        toolbarUsername?.text = "Hi, " + username.toString()
 
         // set up spinner
         val content = findViewById<View>(R.id.content_main)

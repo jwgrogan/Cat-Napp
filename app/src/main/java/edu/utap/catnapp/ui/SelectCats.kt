@@ -41,12 +41,12 @@ class SelectCats: Fragment() {
         }
     }
 
-    private fun initAuth() {
-        viewModel.observeFirebaseAuthLiveData().observe(viewLifecycleOwner, Observer {
-            currentUser = it
-            MainViewModel.currentUser = currentUser
-        })
-    }
+//    private fun initAuth() {
+//        viewModel.observeFirebaseAuthLiveData().observe(viewLifecycleOwner, Observer {
+//            currentUser = it
+//            MainViewModel.currentUser = currentUser
+//        })
+//    }
 
 //    private fun initFavorites() {
 //        val initFavorites = activity?.findViewById<ImageView>(R.id.actionFavorite)
@@ -60,6 +60,15 @@ class SelectCats: Fragment() {
 //        }
 //    }
 
+    private fun initAdapter(view: View) {
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        val gridLayoutManager = GridLayoutManager(context, 2)
+        recyclerView.layoutManager = gridLayoutManager
+
+        adapter = CatAdapter(viewModel)
+        recyclerView.adapter = adapter
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -67,28 +76,29 @@ class SelectCats: Fragment() {
     ): View? {
 
         // set username in toolbar
-        val toolbarUsername = activity?.findViewById<TextView>(R.id.toolbarUsername)
-        val username = "Hi, " + Firebase.auth.currentUser?.displayName.toString()
-        toolbarUsername?.text = username
+//        val toolbarUsername = activity?.findViewById<TextView>(R.id.toolbarUsername)
+//        val username = "Hi, " + Firebase.auth.currentUser?.displayName.toString()
+//        toolbarUsername?.text = username
 
-        // set category title
-        val categoryTV = activity?.findViewById<TextView>(R.id.categoryTV)
-        if (categoryTV != null) {
-            categoryTV.text = MainViewModel.categoryName
-        }
+        // TODO: fix category display, it's not working
+//        val categoryTV = activity?.findViewById<TextView>(R.id.categoryTV)
+//        categoryTV?.text = "These are some " + MainViewModel.categoryName + "cats!"
 
-        initAuth()
+//        val toolbarTitle = activity?.findViewById<TextView>(R.id.toolbarTitle)
+//        toolbarTitle?.text = MainViewModel.categoryName
+
+
+
+
+//        initAuth()
 //        initFavorites()
 
 
         val view = inflater.inflate(R.layout.fragment_select_cats, container, false)
+        initAdapter(view)
+        initSwipeLayout(view)
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
-        val gridLayoutManager = GridLayoutManager(context, 2)
-        recyclerView.layoutManager = gridLayoutManager
 
-        adapter = CatAdapter(viewModel)
-        recyclerView.adapter = adapter
 
         viewModel.netCats()
 
@@ -97,7 +107,7 @@ class SelectCats: Fragment() {
         })
 
 
-        initSwipeLayout(view)
+
 
         return view
     }
