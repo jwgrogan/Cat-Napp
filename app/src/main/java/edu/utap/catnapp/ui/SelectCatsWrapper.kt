@@ -28,15 +28,7 @@ class SelectCatsWrapper : AppCompatActivity() {
 //    }
 
     // https://stackoverflow.com/questions/24838155/set-onclick-listener-on-action-bar-title-in-android/29823008#29823008
-    private fun initActionBar(actionBar: ActionBar) {
-        // Disable the default and enable the custom
-        actionBar.setDisplayShowTitleEnabled(false)
-        actionBar.setDisplayShowCustomEnabled(true)
-        val customView: View =
-            layoutInflater.inflate(R.layout.action_bar, null)
-        // Apply the custom view
-        actionBar.customView = customView
-    }
+
 
     private fun initSelectCats() {
         supportFragmentManager
@@ -58,6 +50,16 @@ class SelectCatsWrapper : AppCompatActivity() {
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit()
         }
+    }
+
+    private fun initActionBar(actionBar: ActionBar) {
+        // Disable the default and enable the custom
+        actionBar.setDisplayShowTitleEnabled(false)
+        actionBar.setDisplayShowCustomEnabled(true)
+        val customView: View =
+                layoutInflater.inflate(R.layout.action_bar, null)
+        // Apply the custom view
+        actionBar.customView = customView
     }
 
     private fun initToolbarUser() {

@@ -19,7 +19,7 @@ import edu.utap.catnapp.ui.MainViewModel
 class FirestoreAdapter(private val viewModel: MainViewModel)
     : RecyclerView.Adapter<FirestoreAdapter.VH>() {
 
-    private var bindFlag = true
+//    private var bindFlag = true
 //    var userId: String? = null
 
     inner class VH(view: View) : RecyclerView.ViewHolder(view) {
@@ -70,9 +70,6 @@ class FirestoreAdapter(private val viewModel: MainViewModel)
                 val glideOptions = RequestOptions().transform(RoundedCorners(20))
                 Glide.with(itemView).load(imageURL).apply(glideOptions).override(480, 320).into(gridPic)
 
-//                gridPic.visibility = View.GONE
-
-//                gridDetails.visibility = View.GONE
                 fav.visibility = View.GONE
 
                 itemView.setOnClickListener {
