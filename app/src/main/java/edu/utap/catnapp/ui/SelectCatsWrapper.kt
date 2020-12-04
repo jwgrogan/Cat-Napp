@@ -70,8 +70,6 @@ class SelectCatsWrapper : AppCompatActivity() {
         } else {
             toolbarUsername?.text = "Please sign in"
         }
-
-
     }
 
     private fun initToolbarMenu() {
@@ -79,7 +77,7 @@ class SelectCatsWrapper : AppCompatActivity() {
         val toolbarMenu = findViewById<TextView>(R.id.actionMenu)
         toolbarMenu.setOnClickListener {
             val popupMenu: PopupMenu = PopupMenu(this, toolbarMenu)
-            popupMenu.menuInflater.inflate(R.menu.popup_menu, popupMenu.menu)
+            popupMenu.menuInflater.inflate(R.menu.menu_sign_in, popupMenu.menu)
             popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
                 when(item.itemId) {
                     R.id.actionSignIn ->

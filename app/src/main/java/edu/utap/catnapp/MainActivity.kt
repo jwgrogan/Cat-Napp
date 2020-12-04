@@ -91,19 +91,32 @@ class MainActivity : AppCompatActivity() {
         // setup toolbar menu
         val toolbarMenu = findViewById<TextView>(R.id.actionMenu)
         toolbarMenu.setOnClickListener {
-            val popupMenu: PopupMenu = PopupMenu(this, toolbarMenu)
-            popupMenu.menuInflater.inflate(R.menu.popup_menu, popupMenu.menu)
-            popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
-                when(item.itemId) {
-                    R.id.actionSignIn ->
-                        signIn()
-                    R.id.actionSignOut ->
-                        signOut()
-                }
-                true
-            })
-            popupMenu.show()
+            if (Firebase.auth.currentUser == null) {
+                val popupMenu: PopupMenu = PopupMenu(this, toolbarMenu)
+                popupMenu.menuInflater.inflate(R.menu.menu_sign_in, popupMenu.menu)
+                popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
+                    when(item.itemId) {
+                        R.id.actionSignIn ->
+                            signIn()
+                    }
+                    true
+                })
+                popupMenu.show()
+            }
+            else {
+                val popupMenu: PopupMenu = PopupMenu(this, toolbarMenu)
+                popupMenu.menuInflater.inflate(R.menu.menu_sign_out, popupMenu.menu)
+                popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
+                    when(item.itemId) {
+                        R.id.actionSignOut ->
+                            signOut()
+                    }
+                    true
+                })
+                popupMenu.show()
+            }
         }
+
     }
 
     private fun signIn() {
