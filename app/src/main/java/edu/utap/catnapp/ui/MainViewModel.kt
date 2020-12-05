@@ -44,13 +44,20 @@ class MainViewModel : ViewModel() {
         var categories = ""
         var categoryName = ""
 
-        // setup for cat details activity
+        // public firestore
+        var db: FirebaseFirestore = FirebaseFirestore.getInstance()
         const val titleKey = "titleKey"
         const val imageURLKey = "imageURLKey"
         const val descKey = "descKey"
+        const val rowIdKey = "rowIdKey"
         const val wikiURLKey = "wikiURLKey"
         var breedFlag = false
         var favFlag = false
+        var commentFlag = false
+
+        fun saveComments (comments: String, rowId: String) {
+            db.collection("globalCats").document(rowId).update("description", comments)
+        }
 
         // launch details from select cats
         fun detailsCatPost(context: Context, catPost: CatPost) {
@@ -59,11 +66,14 @@ class MainViewModel : ViewModel() {
             if (catPost.breeds != emptyList<Breed>()) {
                 data.putString(titleKey, catPost.breeds[0].name)
                 data.putString(descKey, catPost.breeds[0].description)
-                data.putString(wikiURLKey, catPost.breeds[0].wikipedia_url)
+//                data.putString(wikiURLKey, catPost.breeds[0].wikipedia_url)
                 breedFlag = true
             } else {
                 breedFlag = false
             }
+
+
+            commentFlag = false
 
 
 
@@ -86,7 +96,11 @@ class MainViewModel : ViewModel() {
                 breedFlag = false
             }
             favFlag = true
+            commentFlag = true
 
+
+            data.putString(rowIdKey, catPhoto.rowId)
+            data.putString(descKey, catPhoto.description)
             data.putString(imageURLKey, catPhoto.pictureURL)
 
             intent.putExtras(data)
@@ -103,7 +117,7 @@ class MainViewModel : ViewModel() {
     private var selectedCat = MutableLiveData<CatPost>()
 
     // firebase vars
-    private var db: FirebaseFirestore = FirebaseFirestore.getInstance()
+//    private var db: FirebaseFirestore = FirebaseFirestore.getInstance()
 //    private var firebaseAuthLiveData = FirestoreAuthLiveData()
 //    private var photos = MutableLiveData<List<CatPhoto>>()
 //    private var authListener : ListenerRegistration? = null
@@ -199,6 +213,8 @@ class MainViewModel : ViewModel() {
         return photos.value?.contains(cat) ?: false
     }
 
+
+
     fun savePhoto(catPhoto: CatPhoto) {
         Log.d(
             "HomeViewModel",
@@ -209,9 +225,6 @@ class MainViewModel : ViewModel() {
                 catPhoto.description
             )
         )
-        // XXX Write me.
-        // https://firebase.google.com/docs/firestore/manage-data/add-data#add_a_document
-        // Remember to set the rowID of the chatRow before saving it
 
         db.collection("globalCats")
             .add(catPhoto)

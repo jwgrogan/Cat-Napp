@@ -61,26 +61,52 @@
 
     </ScrollView>
 
+    <EditText
+        android:id="@+id/editCommentsET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView"
+        app:layout_constraintStart_toStartOf="parent"
+        android:hint="Enter comments here..." />
+
     <TextView
         android:id="@+id/oneCatWikiTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:gravity="center_horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView"
+        app:layout_constraintTop_toBottomOf="@+id/editCommentsET"
         app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/saveCommentsBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="144dp"
+        android:layout_marginLeft="144dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_corners"
+        android:gravity="center"
+        android:text="save comments"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/oneCatWikiTV" />
 
     <Button
         android:id="@+id/shareBTN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="160sp"
-        android:layout_marginLeft="160sp"
+        android:layout_marginStart="160dp"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="72dp"
+        android:background="@drawable/rounded_corners"
         android:gravity="center"
         android:text="share"
         android:textColor="#FFFFFF"
-        android:background="@drawable/rounded_corners"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/oneCatWikiTV" />
 

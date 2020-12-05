@@ -34,7 +34,7 @@ class CatAdapter(private val viewModel: MainViewModel)
 //                val cUser = MainViewModel.currentUser
                 val cUser = FirebaseAuth.getInstance().currentUser
                 if(cUser == null) {
-                    Toast.makeText(itemView.context, "Please sign in to save photos", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(itemView.context, "Please sign in to save this cat!", Toast.LENGTH_SHORT).show()
                     fav.setImageResource(R.drawable.ic_favorite_border_red_24dp)
                 } else {
                     username = cUser.displayName
