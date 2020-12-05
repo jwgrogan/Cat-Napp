@@ -7,16 +7,13 @@
     <ImageView
         android:id="@+id/gridImage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@mipmap/ic_launcher" />
 
     <ImageView
+        android:id="@+id/gridFav"
         android:layout_width="24dp"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:layout_weight="1"
-        android:id="@+id/gridFav"
-        android:src="@drawable/ic_favorite_border_red_24dp"
-        />
+        android:src="@drawable/ic_favorite_border_red_24dp" />
 </RelativeLayout>

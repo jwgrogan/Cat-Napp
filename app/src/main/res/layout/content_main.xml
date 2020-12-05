@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:id="@+id/dropdownTV"
-        android:text="What cat-egory are you feline today?"
+        android:text="What cat-egory are you feeline today?"
         android:textSize="20sp"
         android:fontFamily="casual"
         android:textColor="@color/black"

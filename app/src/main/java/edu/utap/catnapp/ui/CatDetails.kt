@@ -4,6 +4,8 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import edu.utap.catnapp.R
 import kotlinx.android.synthetic.main.cat_details.*
@@ -19,6 +21,7 @@ class CatDetails : AppCompatActivity() {
             finish()
         }
 
+        var photos = MainViewModel.photos.value
         val breed: String
         val description: String
         val wikiURL: String
@@ -50,6 +53,12 @@ class CatDetails : AppCompatActivity() {
 
         if (MainViewModel.favFlag) {
             detailsFav.setImageResource(R.drawable.ic_favorite_red_24dp)
+
+
+        }
+
+        detailsFav.setOnClickListener {
+            Toast.makeText(this, "Sorry! we are still in Beta - please go back to save a cat :)", Toast.LENGTH_LONG).show()
         }
 
 
