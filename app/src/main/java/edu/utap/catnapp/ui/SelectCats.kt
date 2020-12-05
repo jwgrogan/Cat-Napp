@@ -20,7 +20,7 @@ class SelectCats: Fragment() {
     private lateinit var swipe: SwipeRefreshLayout
     private val viewModel : MainViewModel by activityViewModels()
     private lateinit var adapter : CatAdapter
-    private var currentUser: FirebaseUser? = null
+//    private var currentUser: FirebaseUser? = null
 
 
     companion object {
@@ -29,7 +29,6 @@ class SelectCats: Fragment() {
         }
     }
 
-    // XXX TODO check out addTextChangedListener
 //    private fun actionSearch() {
 //    }
 
@@ -80,7 +79,6 @@ class SelectCats: Fragment() {
 //        val username = "Hi, " + Firebase.auth.currentUser?.displayName.toString()
 //        toolbarUsername?.text = username
 
-        // TODO: fix category display, it's not working
 //        val categoryTV = activity?.findViewById<TextView>(R.id.categoryTV)
 //        categoryTV?.text = "These are some " + MainViewModel.categoryName + "cats!"
 
@@ -105,10 +103,6 @@ class SelectCats: Fragment() {
         viewModel.observeCats().observe(viewLifecycleOwner, Observer {
             adapter.notifyDataSetChanged()
         })
-
-
-
-
         return view
     }
 }

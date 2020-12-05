@@ -22,7 +22,6 @@ interface CatApi {
         private fun create(httpUrl: HttpUrl): CatApi {
             val client = OkHttpClient.Builder()
                 .addInterceptor(HttpLoggingInterceptor().apply {
-                    // Enable basic HTTP logging to help with debugging.
                     this.level = HttpLoggingInterceptor.Level.BASIC
                 })
                 .build()

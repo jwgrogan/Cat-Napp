@@ -23,20 +23,10 @@ class SelectCatsWrapper : AppCompatActivity() {
     private var category: String? = null
     private val RC_SIGN_IN = 123
 
-//    fun hideKeyboard() {
-//        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-//        imm.hideSoftInputFromWindow(window.decorView.rootView.windowToken, 0);
-//    }
-
-    // https://stackoverflow.com/questions/24838155/set-onclick-listener-on-action-bar-title-in-android/29823008#29823008
-
-
     private fun initSelectCats() {
         supportFragmentManager
             .beginTransaction()
-            // No back stack for home
             .add(R.id.main_frame, selectCats)
-            // TRANSIT_FRAGMENT_FADE calls for the Fragment to fade away
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .commit()
     }
@@ -54,12 +44,10 @@ class SelectCatsWrapper : AppCompatActivity() {
     }
 
     private fun initActionBar(actionBar: ActionBar) {
-        // Disable the default and enable the custom
         actionBar.setDisplayShowTitleEnabled(false)
         actionBar.setDisplayShowCustomEnabled(true)
         val customView: View =
                 layoutInflater.inflate(R.layout.action_bar, null)
-        // Apply the custom view
         actionBar.customView = customView
     }
 
@@ -108,7 +96,6 @@ class SelectCatsWrapper : AppCompatActivity() {
         val providers = arrayListOf(
                 AuthUI.IdpConfig.EmailBuilder().build()
         )
-        // Create and launch sign-in intent
         startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
@@ -144,11 +131,6 @@ class SelectCatsWrapper : AppCompatActivity() {
         initToolbarUser()
         initToolbarMenu()
         initFavorites()
-
-//        val categoryTV = findViewById<TextView>(R.id.categoryTV)
-//        if (categoryTV != null) {
-//            categoryTV.text = MainViewModel.categoryName
-//        }
 
         category = intent.extras?.getString(MainActivity.categoryKey)
         MainViewModel.categories = category.toString()

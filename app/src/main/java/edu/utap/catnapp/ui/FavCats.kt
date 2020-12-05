@@ -26,7 +26,6 @@ class FavCats : Fragment() {
         }
     }
 
-    // TODO: need this if get the main screen favs working
 //    private fun initAuth() {
 //        viewModel.observeFirebaseAuthLiveData().observe(viewLifecycleOwner, Observer {
 //            currentUser = it
@@ -54,7 +53,6 @@ class FavCats : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        // TODO: add favorits label bar
 //        val toolbarTitle = activity?.findViewById<TextView>(R.id.toolbarTitle)
 //        toolbarTitle?.text = "Favorites"
 //        cancelClick()

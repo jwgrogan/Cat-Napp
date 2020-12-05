@@ -114,7 +114,7 @@ class MainViewModel : ViewModel() {
     private var favCats = MutableLiveData<List<CatPost>>().apply {
         value = mutableListOf()
     }
-    private var selectedCat = MutableLiveData<CatPost>()
+//    private var selectedCat = MutableLiveData<CatPost>()
 
     // firebase vars
 //    private var db: FirebaseFirestore = FirebaseFirestore.getInstance()
@@ -144,13 +144,13 @@ class MainViewModel : ViewModel() {
     }
 
     // favorites functions
-    fun observeFav (): LiveData<List<CatPost>> {
-        return favCats
-    }
-
-    fun observeLiveFav (): LiveData<List<CatPost>> {
-        return favCats
-    }
+//    fun observeFav (): LiveData<List<CatPost>> {
+//        return favCats
+//    }
+//
+//    fun observeLiveFav (): LiveData<List<CatPost>> {
+//        return favCats
+//    }
 
     fun addFav(posts : CatPost) {
         val localList = favCats.value?.toMutableList()
@@ -172,13 +172,13 @@ class MainViewModel : ViewModel() {
 
 
     // selection functions
-    fun selectCat(cat : CatPost) {
-        selectedCat.value = cat
-    }
-
-    fun isSelected(cat: CatPost): Boolean {
-        return selectedCat.value == cat ?: false
-    }
+//    fun selectCat(cat : CatPost) {
+//        selectedCat.value = cat
+//    }
+//
+//    fun isSelected(cat: CatPost): Boolean {
+//        return selectedCat.value == cat ?: false
+//    }
 
     // firebase auth functions
 //    fun observeFirebaseAuthLiveData(): LiveData<FirebaseUser?> {
@@ -196,7 +196,6 @@ class MainViewModel : ViewModel() {
 //    }
 
 
-    // TODO: signout?
 //    fun signOut() {
 //        chatListener?.remove()
 //        FirebaseAuth.getInstance().signOut()
@@ -209,23 +208,13 @@ class MainViewModel : ViewModel() {
         return photos
     }
 
-    fun isFavPhoto(cat: CatPhoto): Boolean {
-        return photos.value?.contains(cat) ?: false
-    }
+//    fun isFavPhoto(cat: CatPhoto): Boolean {
+//        return photos.value?.contains(cat) ?: false
+//    }
 
 
 
     fun savePhoto(catPhoto: CatPhoto) {
-        Log.d(
-            "HomeViewModel",
-            String.format(
-                "saveChatRow ownerUid(%s) name(%s) %s",
-                catPhoto.userId,
-                catPhoto.username,
-                catPhoto.description
-            )
-        )
-
         db.collection("globalCats")
             .add(catPhoto)
             .addOnSuccessListener { documentReference ->
@@ -235,7 +224,6 @@ class MainViewModel : ViewModel() {
                     .update("rowId", documentReference.id)
                     .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
                     .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
-
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error adding document", e)
@@ -243,27 +231,18 @@ class MainViewModel : ViewModel() {
     }
 
     fun deletePhoto(catPhoto: CatPhoto){
-        // Delete picture (if any) on the server, asynchronously
-//        val url = catPhoto.pictureURL
-        // TODO: remove if check
-//        if (url != null) {
-//            Storage.deleteImage(url)
-//        }
-        Log.d(javaClass.simpleName, "remote chatRow id: ${catPhoto.rowId}")
-
-        // XXX delete chatRow
         db.collection("globalCats").document(catPhoto.rowId).delete()
-            .addOnSuccessListener {
-                Log.d(
-                    javaClass.simpleName,
-                    "Chat delete \"${catPhoto.description}\" id: ${catPhoto.rowId}"
-                )
-                getPhotos()
-            }
-            .addOnFailureListener { e ->
-                Log.d(javaClass.simpleName, "Chat deleting FAILED \"${catPhoto.description}\"")
-                Log.w(javaClass.simpleName, "Error adding document", e)
-            }
+//            .addOnSuccessListener {
+//                Log.d(
+//                    javaClass.simpleName,
+//                    "Chat delete \"${catPhoto.description}\" id: ${catPhoto.rowId}"
+//                )
+//                getPhotos()
+//            }
+//            .addOnFailureListener { e ->
+//                Log.d(javaClass.simpleName, "Chat deleting FAILED \"${catPhoto.description}\"")
+//                Log.w(javaClass.simpleName, "Error adding document", e)
+//            }
     }
 
     fun getPhotos() {

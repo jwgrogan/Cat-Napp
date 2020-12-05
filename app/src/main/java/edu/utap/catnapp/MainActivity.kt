@@ -30,14 +30,6 @@ class MainActivity : AppCompatActivity() {
     private var categoryMap = mapOf<String, String>("Hats" to "1", "Space" to "2", "Funny" to "3", "Sunglasses" to "4", "Boxes" to "5", "Caturday" to "6", "Ties" to "7", "Dream" to "9", "Sinks" to "14", "Clothes" to "15")
     private val RC_SIGN_IN = 123
 
-
-//    fun hideKeyboard() {
-//        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-//        imm.hideSoftInputFromWindow(window.decorView.rootView.windowToken, 0);
-//    }
-
-    // https://stackoverflow.com/questions/24838155/set-onclick-listener-on-action-bar-title-in-android/29823008#29823008
-
     private fun initFavorites() {
         val initFavorites = findViewById<ImageView>(R.id.actionFavorite)
         initFavorites?.setOnClickListener{
@@ -71,12 +63,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initActionBar(actionBar: ActionBar) {
-        // Disable the default and enable the custom
         actionBar.setDisplayShowTitleEnabled(false)
         actionBar.setDisplayShowCustomEnabled(true)
         val customView: View =
                 layoutInflater.inflate(R.layout.action_bar, null)
-        // Apply the custom view
         actionBar.customView = customView
     }
 
@@ -182,19 +172,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-
     // TODO: delete this?
-    // NB: If you declare data: Intent, you get onActivityResult overrides nothing
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
-        // XXX Write me
         data?.extras?.apply {
-            // Not sure if this is needed at all
-            // Maybe pass favourites back?
-            // If we want the favourites heart in toolbar
-            // On this page
         }
     }
 }

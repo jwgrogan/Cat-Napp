@@ -14,12 +14,10 @@ import com.google.firebase.auth.FirebaseAuth
 import edu.utap.catnapp.R
 import edu.utap.catnapp.api.CatPost
 import edu.utap.catnapp.firebase.CatPhoto
-//import edu.utap.catnapp.firebase.Storage
 
 class CatAdapter(private val viewModel: MainViewModel)
     : RecyclerView.Adapter<CatAdapter.VH>() {
 
-    // ViewHolder pattern minimizes calls to findViewById
     inner class VH(view: View) : RecyclerView.ViewHolder(view) {
         private var gridPic = view.findViewById<ImageView>(R.id.gridImage)
         private var fav = view.findViewById<ImageView>(R.id.gridFav)
@@ -31,33 +29,25 @@ class CatAdapter(private val viewModel: MainViewModel)
 
         private fun initSave(item: CatPost) {
             val catPhoto = CatPhoto().apply {
-//                val cUser = MainViewModel.currentUser
-                val cUser = FirebaseAuth.getInstance().currentUser
-                if(cUser == null) {
+                val user = FirebaseAuth.getInstance().currentUser
+                if(user == null) {
                     Toast.makeText(itemView.context, "Please sign in to save this cat!", Toast.LENGTH_SHORT).show()
                     fav.setImageResource(R.drawable.ic_favorite_border_red_24dp)
                 } else {
-                    username = cUser.displayName
-                    userId = cUser.uid
+                    username = user.displayName
+                    userId = user.uid
                 }
                 pictureURL = item.url
             }
             viewModel.savePhoto(catPhoto)
-//            val localPhotoFile = File(storageDir, "${pictureURL}.jpg")
-//            Storage.uploadImage(localPhotoFile, pictureUUID) {
-//                Log.d(javaClass.simpleName, "uploadImage callback ${pictureUUID}")
-//                photoSuccess(pictureUUID)
-//                photoSuccess = ::defaultPhoto
-////            state.get<(String)->Unit>(photoSuccessKey)?.invoke(pictureUUID)
-////            state.set(photoSuccessKey, ::defaultPhoto)
-//                state.set(pictureUUIDKey, "")
+            viewModel.getPhotos()
         }
 
         fun bind(item: CatPost){
             viewModel.getPhotos()
-            var photos = viewModel.observePhotos().value
+//            var photos = viewModel.observePhotos().value
 
-            val userId = FirebaseAuth.getInstance().currentUser?.uid
+//            val userId = FirebaseAuth.getInstance().currentUser?.uid
 
             val imageURL = item.url
             val glideOptions = RequestOptions().transform(RoundedCorners(20))
@@ -65,9 +55,9 @@ class CatAdapter(private val viewModel: MainViewModel)
 
 
 
-            // set fav heart //TODO: not working
-            if (photos != null) {
-                for (photo in photos) {
+            // set fav heart //TODO: sometimes works, why?
+            if (viewModel.observePhotos().value != null) {
+                for (photo in viewModel.observePhotos().value!!) {
                     if (item.url == photo.pictureURL) {
                         fav.setImageResource(R.drawable.ic_favorite_red_24dp)
                         viewModel.addFav(item)
@@ -75,33 +65,28 @@ class CatAdapter(private val viewModel: MainViewModel)
                         fav.setImageResource(R.drawable.ic_favorite_border_red_24dp)
                         viewModel.removeFav(item)
                     }
-
                 }
             }
-//            if (viewModel.isFavPhoto(item)) {
-//                fav.setImageResource(R.drawable.ic_favorite_black_24dp)
-//            } else {
-//                fav.setImageResource(R.drawable.ic_favorite_border_black_24dp)
-//            }
 
             itemView.setOnClickListener{
                 MainViewModel.favFlag = viewModel.isFav(item)
                 MainViewModel.detailsCatPost(itemView.context, item)
             }
 
-            // TODO: fix this and move this into function above
+            // handle adding and removing favs
             fav.setOnClickListener{
-                if (viewModel.isFav(item)) { // if fave, clicking removes favorite and deletes from firestore
+                if (viewModel.isFav(item)) { // if fav, clicking removes favorite and deletes from firestore
                     fav.setImageResource(R.drawable.ic_favorite_border_red_24dp)
-                    viewModel.removeFav(item)
-                    if (photos != null) {
-                        for (photo in photos) {
+//                    viewModel.getPhotos()
+                    if (viewModel.observePhotos().value != null) {
+                        for (photo in viewModel.observePhotos().value!!) {
                             if (item.url == photo.pictureURL) {
                                 viewModel.deletePhoto(photo)
                             }
 
                         }
                     }
+                    viewModel.removeFav(item)
                 }
                 else { // else add to firestore
                     fav.setImageResource(R.drawable.ic_favorite_red_24dp)

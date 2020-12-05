@@ -32,8 +32,8 @@ class CatDetails : AppCompatActivity() {
             finish()
         }
 
-        var photos = MainViewModel.photos.value
-        val breed: String
+//        var photos = MainViewModel.photos.value
+//        val breed: String
 //        val description: String
 //        val wikiURL: String
 
@@ -52,7 +52,7 @@ class CatDetails : AppCompatActivity() {
         val title = "Oh hey there..."
         val imageURL = intent.extras?.getString(MainViewModel.imageURLKey)
         val rowId = intent.extras?.getString(MainViewModel.rowIdKey).toString()
-        val description = intent.extras?.getString(MainViewModel.descKey).toString()
+        val comments = intent.extras?.getString(MainViewModel.descKey).toString()
 
 //        if (title.length > 30){
 //            oneCatBreedTV.text = breed.take(30) + "..."
@@ -67,16 +67,17 @@ class CatDetails : AppCompatActivity() {
             saveCommentsBTN.setOnClickListener {
                 if (editCommentsET.text.isNotEmpty()) {
                     MainViewModel.saveComments(editCommentsET.text.toString(), rowId)
+                    commentsTV.text = editCommentsET.text.toString()
                     editCommentsET.text.clear()
                     Toast.makeText(this, "Comments saved!", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this, "Please enter comments", Toast.LENGTH_SHORT).show()
                 }
             }
-            if (description != "null") {
-                oneCatDescriptionTV.text = description
+            if (comments != "null") {
+                commentsTV.text = comments
             } else {
-                oneCatDescriptionTV.text = "Enter comments and see them here!"
+                commentsTV.text = "Enter comments and see them here!"
             }
         }
         else {
@@ -86,10 +87,10 @@ class CatDetails : AppCompatActivity() {
                 editCommentsET.text.clear()
                 Toast.makeText(this, "Save this cat to see and enter comments!", Toast.LENGTH_LONG).show()
             }
-            if (description != "null") {
-                oneCatDescriptionTV.text = description
+            if (comments != "null") {
+                commentsTV.text = comments
             } else {
-                oneCatDescriptionTV.text = "Save this cat to see and enter comments!"
+                commentsTV.text = "Save this cat to see and enter comments!"
             }
         }
 
@@ -106,11 +107,10 @@ class CatDetails : AppCompatActivity() {
         }
 
         oneCatBreedTV.text = title
-        Glide.with(this).load(imageURL).into(oneCatIV)
+        Glide.with(this).load(imageURL).into(catDetailsIV)
 
 
 
-        // TODO: make wiki link clickable
 //        oneCatWikiTV.text = wikiURL
 
 
@@ -124,22 +124,6 @@ class CatDetails : AppCompatActivity() {
         detailsFav.setOnClickListener {
             Toast.makeText(this, "Sorry! we are still in Beta - please go back to save a cat :)", Toast.LENGTH_LONG).show()
         }
-
-
-        // set up sharing
-        // https://www.tutorialspoint.com/android/android_twitter_integration.htm
-//        shareBTN.setOnClickListener {
-//            val sharingIntent = Intent(Intent.ACTION_SEND)
-//            val imageURI = Uri.parse(imageURL)
-//
-//            // TODO: check if uri is valid? prob not needed
-//            val stream = contentResolver.openInputStream(imageURI)
-//
-//            sharingIntent.type = "image/jpeg";
-//            // TODO: verify if this needs to be uri or url
-//            sharingIntent.putExtra(Intent.EXTRA_STREAM, imageURI);
-//            startActivity(Intent.createChooser(sharingIntent, "Share"));
-//            }
 
         shareBTN.setOnClickListener {
             val myIntent = Intent()

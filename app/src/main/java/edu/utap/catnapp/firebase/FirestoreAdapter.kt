@@ -19,15 +19,11 @@ import edu.utap.catnapp.ui.MainViewModel
 class FirestoreAdapter(private val viewModel: MainViewModel)
     : RecyclerView.Adapter<FirestoreAdapter.VH>() {
 
-//    private var bindFlag = true
-//    var userId: String? = null
-
     inner class VH(view: View) : RecyclerView.ViewHolder(view) {
         private var gridPic = view.findViewById<ImageView>(R.id.gridImage)
         private var fav = view.findViewById<ImageView>(R.id.gridFav)
 
         init {
-//            itemView.isLongClickable = true
         }
 
         fun bind(item: CatPhoto) {
@@ -37,14 +33,10 @@ class FirestoreAdapter(private val viewModel: MainViewModel)
 
 //            if (item == null) return
             val userId = FirebaseAuth.getInstance().currentUser?.uid
+//            fav.setImageResource(R.drawable.ic_favorite_red_24dp)
 //            val userId = Firebase.auth.currentUser?.displayName
 //            if (viewModel.getUserId() == item.userId) {
             if (userId == item.userId) {
-
-//                itemView.setOnLongClickListener {
-//                    viewModel.deletePhoto(item)
-//                    true
-//                }
                 itemView.setOnClickListener{
                     MainViewModel.detailsCatPhoto(itemView.context, item)
                 }
@@ -53,7 +45,7 @@ class FirestoreAdapter(private val viewModel: MainViewModel)
                 val glideOptions = RequestOptions().transform(RoundedCorners(20))
                 Glide.with(itemView).load(imageURL).apply(glideOptions).override(480, 320).into(gridPic)
 
-//                item.pictureURL?.let { Glide.with(itemView).load(it).into(gridPic) }
+                // TODO: sometimes heart doesn't show in favs
                 fav.setImageResource(R.drawable.ic_favorite_red_24dp)
 
                 // delete from favs if user clicks heart
@@ -61,7 +53,6 @@ class FirestoreAdapter(private val viewModel: MainViewModel)
                     fav.setImageResource(R.drawable.ic_favorite_border_red_24dp)
                     viewModel.deletePhoto(item)
                 }
-//                bindFlag = true
             }
             else {
                 // TODO: vNext - figure out how to stop bind if it isn't a users fav
@@ -80,25 +71,16 @@ class FirestoreAdapter(private val viewModel: MainViewModel)
                     data.putString(MainViewModel.imageURLKey, url)
                     startActivity(itemView.context, intent, data)
                 }
-//                viewModel.deletePhoto(item)
-
-//                bindFlag = false
-
-
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.cat_image, parent, false)
-        //Log.d(MainActivity.TAG, "Create VH")
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.cat_image, parent, false)
         return VH(itemView)
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        //Log.d(MainActivity.TAG, "Bind pos $position")
-//        holder.bind(getItem(holder.adapterPosition))
         holder.bind(viewModel.observePhotos().value!![position])
     }
 
