@@ -12,7 +12,8 @@
         android:textAlignment="center"
         android:gravity="center_horizontal"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:text="These are your favFURite cats!" />
+        android:text="These are your favFURite cats!"
+        android:fontFamily="casual"/>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
