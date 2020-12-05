@@ -15,15 +15,8 @@
         android:text="These are your favFURite cats!"
         android:fontFamily="casual"/>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/favSwipeRefreshLayout" >
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/favRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>
