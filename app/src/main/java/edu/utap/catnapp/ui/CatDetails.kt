@@ -62,8 +62,8 @@ class CatDetails : AppCompatActivity() {
 
         // set up comments if cat is favorite
         if (MainViewModel.commentFlag) {
-            editCommentsET.isEnabled = true
-            saveCommentsBTN.isEnabled = true
+//            editCommentsET.isEnabled = true
+//            saveCommentsBTN.isEnabled = true
             saveCommentsBTN.setOnClickListener {
                 if (editCommentsET.text.isNotEmpty()) {
                     MainViewModel.saveComments(editCommentsET.text.toString(), rowId)
