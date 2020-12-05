@@ -18,6 +18,7 @@ import edu.utap.catnapp.MainActivity
 import edu.utap.catnapp.R
 
 class SelectCatsWrapper : AppCompatActivity() {
+
     private lateinit var selectCats: SelectCats
     private var category: String? = null
     private val RC_SIGN_IN = 123
@@ -73,21 +74,33 @@ class SelectCatsWrapper : AppCompatActivity() {
     }
 
     private fun initToolbarMenu() {
-        // setup toolbar menu
+        // setup sign in and sign out menu
         val toolbarMenu = findViewById<TextView>(R.id.actionMenu)
         toolbarMenu.setOnClickListener {
-            val popupMenu: PopupMenu = PopupMenu(this, toolbarMenu)
-            popupMenu.menuInflater.inflate(R.menu.menu_sign_in, popupMenu.menu)
-            popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
-                when(item.itemId) {
-                    R.id.actionSignIn ->
-                        signIn()
-                    R.id.actionSignOut ->
-                        signOut()
-                }
-                true
-            })
-            popupMenu.show()
+            if (Firebase.auth.currentUser == null) {
+                val popupMenu: PopupMenu = PopupMenu(this, toolbarMenu)
+                popupMenu.menuInflater.inflate(R.menu.menu_sign_in, popupMenu.menu)
+                popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
+                    when(item.itemId) {
+                        R.id.actionSignIn ->
+                            signIn()
+                    }
+                    true
+                })
+                popupMenu.show()
+            }
+            else {
+                val popupMenu: PopupMenu = PopupMenu(this, toolbarMenu)
+                popupMenu.menuInflater.inflate(R.menu.menu_sign_out, popupMenu.menu)
+                popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item ->
+                    when(item.itemId) {
+                        R.id.actionSignOut ->
+                            signOut()
+                    }
+                    true
+                })
+                popupMenu.show()
+            }
         }
     }
 

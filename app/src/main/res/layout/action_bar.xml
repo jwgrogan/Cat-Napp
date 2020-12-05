@@ -13,7 +13,8 @@
         android:layout_weight="1"
         android:layout_gravity="start|center_vertical"
         android:textSize="18sp"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:fontFamily="casual"/>
 
     <TextView
         android:id="@+id/toolbarTitle"

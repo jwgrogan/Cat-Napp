@@ -3,6 +3,7 @@ package edu.utap.catnapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
@@ -21,23 +22,21 @@ import edu.utap.catnapp.ui.SelectCatsWrapper
 
 
 class MainActivity : AppCompatActivity() {
+
     companion object {
         const val categoryKey = "categoryKey"
     }
+
     private var categoryMap = mapOf<String, String>("Hats" to "1", "Space" to "2", "Funny" to "3", "Sunglasses" to "4", "Boxes" to "5", "Caturday" to "6", "Ties" to "7", "Dream" to "9", "Sinks" to "14", "Clothes" to "15")
     private val RC_SIGN_IN = 123
 
 
-    fun hideKeyboard() {
-        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(window.decorView.rootView.windowToken, 0);
-    }
+//    fun hideKeyboard() {
+//        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+//        imm.hideSoftInputFromWindow(window.decorView.rootView.windowToken, 0);
+//    }
 
     // https://stackoverflow.com/questions/24838155/set-onclick-listener-on-action-bar-title-in-android/29823008#29823008
-
-
-
-
 
     private fun initFavorites() {
         val initFavorites = findViewById<ImageView>(R.id.actionFavorite)
@@ -88,7 +87,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initToolbarMenu() {
-        // setup toolbar menu
+        // setup sign in and sign out menu
         val toolbarMenu = findViewById<TextView>(R.id.actionMenu)
         toolbarMenu.setOnClickListener {
             if (Firebase.auth.currentUser == null) {
@@ -116,14 +115,12 @@ class MainActivity : AppCompatActivity() {
                 popupMenu.show()
             }
         }
-
     }
 
     private fun signIn() {
         val providers = arrayListOf(
                 AuthUI.IdpConfig.EmailBuilder().build()
         )
-        // Create and launch sign-in intent
         startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
@@ -140,7 +137,7 @@ class MainActivity : AppCompatActivity() {
         toolbarUsername?.text = "Please sign in"
     }
 
-    // check if user has changed and for clearing top text
+    // check if user has changed
     override fun onResume() {
         super.onResume()
         initToolbarUser()
@@ -171,8 +168,8 @@ class MainActivity : AppCompatActivity() {
         val spinner = content.findViewById<Spinner>(R.id.categorySpinner)
         val categoryTypeAdapter = ArrayAdapter.createFromResource(this,
             R.array.category_type,
-            android.R.layout.simple_spinner_item)
-        categoryTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            R.layout.spinner_font)
+        categoryTypeAdapter.setDropDownViewResource(R.layout.spinner_font)
         spinner.adapter = categoryTypeAdapter
 
         val button = content.findViewById<Button>(R.id.friendButton)

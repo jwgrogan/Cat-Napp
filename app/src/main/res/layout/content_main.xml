@@ -12,9 +12,10 @@
         android:layout_height="0dp"
         android:id="@+id/catNappTV"
         android:text="CatNapp"
-        android:textSize="50dp"
-        android:gravity="center_horizontal"
+        android:textSize="50sp"
         android:textColor="@color/black"
+        android:gravity="center_horizontal"
+        android:fontFamily="casual"
         android:paddingBottom="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -23,9 +24,10 @@
         android:layout_height="0dp"
         android:id="@+id/purrfectTV"
         android:text="Find your purr-fect kitten!"
-        android:textSize="30dp"
-        android:gravity="center_horizontal"
+        android:textSize="30sp"
+        android:fontFamily="casual"
         android:textColor="@color/black"
+        android:gravity="center_horizontal"
         android:paddingBottom="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/catNappTV"/>
@@ -42,29 +44,37 @@
         android:layout_height="0dp"
         android:id="@+id/dropdownTV"
         android:text="What cat-egory are you feline today?"
-        android:textSize="23dp"
-        android:gravity="center_horizontal"
+        android:textSize="20sp"
+        android:fontFamily="casual"
         android:textColor="@color/black"
+        android:gravity="center_horizontal"
         android:paddingBottom="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logoIV"/>
+
     <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/categorySpinner"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginStart="104dp"
+        android:layout_marginLeft="104dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dropdownTV" />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/friendButton"
         android:text="Find your fur-ever friend!"
-        android:textSize="20dp"
+        android:textSize="20sp"
+        android:fontFamily="casual"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/rounded_corners"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
