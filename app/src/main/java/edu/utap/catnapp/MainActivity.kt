@@ -81,9 +81,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initToolbarUser() {
-        val username = Firebase.auth.currentUser?.displayName
+        val user = Firebase.auth.currentUser
         val toolbarUsername = findViewById<TextView>(R.id.toolbarUsername)
-        toolbarUsername?.text = "Hi, " + username.toString()
+        if (user != null) {
+            toolbarUsername?.text = "Hi, " + user.displayName.toString()
+        } else {
+            toolbarUsername?.text = "Please sign in"
+        }
     }
 
     private fun initToolbarMenu() {
