@@ -40,34 +40,22 @@ class CatAdapter(private val viewModel: MainViewModel)
                 pictureURL = item.url
             }
             viewModel.savePhoto(catPhoto)
-            viewModel.getPhotos()
+            viewModel.getPhotos(FirebaseAuth.getInstance().currentUser?.uid.toString())
         }
 
         fun bind(item: CatPost){
-            viewModel.getPhotos()
+            // load photos from storage
+            viewModel.getPhotos(FirebaseAuth.getInstance().currentUser?.uid.toString())
 //            var photos = viewModel.observePhotos().value
 
 //            val userId = FirebaseAuth.getInstance().currentUser?.uid
 
+            // bind images
             val imageURL = item.url
             val glideOptions = RequestOptions().transform(RoundedCorners(20))
             Glide.with(itemView).load(imageURL).apply(glideOptions).override(480, 320).into(gridPic)
 
-
-
-            // set fav heart //TODO: sometimes works, why?
-            if (viewModel.observePhotos().value != null) {
-                for (photo in viewModel.observePhotos().value!!) {
-                    if (item.url == photo.pictureURL) {
-                        fav.setImageResource(R.drawable.ic_favorite_red_24dp)
-                        viewModel.addFav(item)
-                    } else {
-                        fav.setImageResource(R.drawable.ic_favorite_border_red_24dp)
-                        viewModel.removeFav(item)
-                    }
-                }
-            }
-
+            // set up details click
             itemView.setOnClickListener{
                 MainViewModel.favFlag = viewModel.isFav(item)
                 MainViewModel.detailsCatPost(itemView.context, item)
@@ -77,7 +65,6 @@ class CatAdapter(private val viewModel: MainViewModel)
             fav.setOnClickListener{
                 if (viewModel.isFav(item)) { // if fav, clicking removes favorite and deletes from firestore
                     fav.setImageResource(R.drawable.ic_favorite_border_red_24dp)
-//                    viewModel.getPhotos()
                     if (viewModel.observePhotos().value != null) {
                         for (photo in viewModel.observePhotos().value!!) {
                             if (item.url == photo.pictureURL) {
@@ -92,6 +79,20 @@ class CatAdapter(private val viewModel: MainViewModel)
                     fav.setImageResource(R.drawable.ic_favorite_red_24dp)
                     viewModel.addFav(item)
                     initSave(item)
+                }
+            }
+
+            // set fav heart
+            if (viewModel.observePhotos().value != null) {
+                for (photo in viewModel.observePhotos().value!!) {
+                    if (item.url == photo.pictureURL) {
+                        fav.setImageResource(R.drawable.ic_favorite_red_24dp)
+                        viewModel.addFav(item)
+                    }
+//                    else {
+//                        fav.setImageResource(R.drawable.ic_favorite_border_red_24dp)
+////                        viewModel.removeFav(item)
+//                    }
                 }
             }
         }

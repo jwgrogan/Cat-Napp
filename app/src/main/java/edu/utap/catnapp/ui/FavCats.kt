@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import edu.utap.catnapp.MainActivity
 import edu.utap.catnapp.R
@@ -44,7 +45,7 @@ class FavCats : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getPhotos()
+        viewModel.getPhotos(FirebaseAuth.getInstance().currentUser?.uid.toString())
     }
 
     override fun onCreateView(

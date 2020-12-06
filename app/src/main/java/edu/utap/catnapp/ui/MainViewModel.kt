@@ -245,18 +245,25 @@ class MainViewModel : ViewModel() {
 //            }
     }
 
-    fun getPhotos() {
+    fun getPhotos(userId: String) {
+//        var list: MutableList<CatPhoto> = mutableListOf()
         if (FirebaseAuth.getInstance().currentUser == null) {
             photos.value = listOf()
             return
         } else {
 //            val photoRef = db.collection("globalCats").orderBy("timeStamp") // return all cats
-            val photoRef = db.collection("globalCats")
+            val photoRef = db.collection("globalCats").whereEqualTo("userId", userId)
             photoRef.addSnapshotListener { querySnapshot, ex ->
                 if (ex != null) {
                     return@addSnapshotListener
                 }
                 if (querySnapshot != null) {
+//                    for (i in querySnapshot) {
+//                        if (i.get("userId") == userId) {
+//                            list.add(i.toObject(CatPhoto::class.java))
+//                        }
+//                    }
+//                    photos.value = list
                     photos.value = querySnapshot.documents.mapNotNull {
                         it.toObject(CatPhoto::class.java)
                     }

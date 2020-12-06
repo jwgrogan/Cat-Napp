@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -66,6 +67,11 @@ class SelectCats: Fragment() {
 
         adapter = CatAdapter(viewModel)
         recyclerView.adapter = adapter
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getPhotos(FirebaseAuth.getInstance().currentUser?.uid.toString())
     }
 
     override fun onCreateView(

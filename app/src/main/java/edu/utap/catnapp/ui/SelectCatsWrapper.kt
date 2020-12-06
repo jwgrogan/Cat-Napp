@@ -26,7 +26,7 @@ class SelectCatsWrapper : AppCompatActivity() {
     private fun initSelectCats() {
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.main_frame, selectCats)
+            .replace(R.id.main_frame, selectCats)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .commit()
     }

@@ -46,7 +46,7 @@ class FirestoreAdapter(private val viewModel: MainViewModel)
                 Glide.with(itemView).load(imageURL).apply(glideOptions).override(480, 320).into(gridPic)
 
                 // TODO: sometimes heart doesn't show in favs
-                fav.setImageResource(R.drawable.ic_favorite_red_24dp)
+//                fav.setImageResource(R.drawable.ic_favorite_red_24dp)
 
                 // delete from favs if user clicks heart
                 fav.setOnClickListener {
@@ -55,7 +55,7 @@ class FirestoreAdapter(private val viewModel: MainViewModel)
                 }
             }
             else {
-                // TODO: vNext - figure out how to stop bind if it isn't a users fav
+                // old solution - no longer needed but keeping as an idea to add ads later?
                 // makes it an ad... still need better solution
                 val imageURL = "https://mrvirk.com/wp-content/uploads/2018/07/google-ads-logo-2019.png"
                 val glideOptions = RequestOptions().transform(RoundedCorners(20))
@@ -72,6 +72,8 @@ class FirestoreAdapter(private val viewModel: MainViewModel)
                     startActivity(itemView.context, intent, data)
                 }
             }
+
+            fav.setImageResource(R.drawable.ic_favorite_red_24dp)
         }
     }
 

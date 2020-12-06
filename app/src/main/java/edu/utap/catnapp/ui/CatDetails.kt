@@ -122,7 +122,7 @@ class CatDetails : AppCompatActivity() {
 
         // handle lack of full features for favs
         detailsFav.setOnClickListener {
-            Toast.makeText(this, "Sorry! we are still in Beta - please go back to save a cat :)", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Sorry! we are still in Beta - please go back to save/remove this cat :)", Toast.LENGTH_LONG).show()
         }
 
         shareBTN.setOnClickListener {

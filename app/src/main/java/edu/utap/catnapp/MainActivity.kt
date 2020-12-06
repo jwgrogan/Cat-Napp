@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         initFavorites?.setOnClickListener{
             supportFragmentManager
                     .beginTransaction()
-                    .add(R.id.main_frame, FavCats.newInstance())
+                    .replace(R.id.main_frame, FavCats.newInstance())
                     .addToBackStack(null)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit()
@@ -145,6 +145,7 @@ class MainActivity : AppCompatActivity() {
         if (Firebase.auth.currentUser == null) {
             signIn()
         }
+
 
         // set up toolbar
         val toolbar: Toolbar = findViewById(R.id.toolbar)
