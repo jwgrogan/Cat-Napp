@@ -28,14 +28,7 @@ class FirestoreAdapter(private val viewModel: MainViewModel)
 
         fun bind(item: CatPhoto) {
 
-//            val imageURL = item?.pictureURL
-//            Glide.with(itemView).load(imageURL).into(gridPic)
-
-//            if (item == null) return
             val userId = FirebaseAuth.getInstance().currentUser?.uid
-//            fav.setImageResource(R.drawable.ic_favorite_red_24dp)
-//            val userId = Firebase.auth.currentUser?.displayName
-//            if (viewModel.getUserId() == item.userId) {
             if (userId == item.userId) {
                 itemView.setOnClickListener{
                     MainViewModel.detailsCatPhoto(itemView.context, item)
@@ -44,9 +37,6 @@ class FirestoreAdapter(private val viewModel: MainViewModel)
                 val imageURL = item.pictureURL
                 val glideOptions = RequestOptions().transform(RoundedCorners(20))
                 Glide.with(itemView).load(imageURL).apply(glideOptions).override(480, 320).into(gridPic)
-
-                // TODO: sometimes heart doesn't show in favs
-//                fav.setImageResource(R.drawable.ic_favorite_red_24dp)
 
                 // delete from favs if user clicks heart
                 fav.setOnClickListener {

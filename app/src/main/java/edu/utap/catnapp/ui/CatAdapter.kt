@@ -46,9 +46,6 @@ class CatAdapter(private val viewModel: MainViewModel)
         fun bind(item: CatPost){
             // load photos from storage
             viewModel.getPhotos(FirebaseAuth.getInstance().currentUser?.uid.toString())
-//            var photos = viewModel.observePhotos().value
-
-//            val userId = FirebaseAuth.getInstance().currentUser?.uid
 
             // bind images
             val imageURL = item.url

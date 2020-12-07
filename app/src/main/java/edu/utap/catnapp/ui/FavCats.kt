@@ -19,20 +19,12 @@ import edu.utap.catnapp.firebase.FirestoreAdapter
 class FavCats : Fragment() {
     private val viewModel : MainViewModel by activityViewModels()
     private lateinit var adapter : FirestoreAdapter
-    private var currentUser: FirebaseUser? = null
 
     companion object {
         fun newInstance(): FavCats {
             return FavCats()
         }
     }
-
-//    private fun initAuth() {
-//        viewModel.observeFirebaseAuthLiveData().observe(viewLifecycleOwner, Observer {
-//            currentUser = it
-//            MainViewModel.currentUser = currentUser
-//        })
-//    }
 
     private fun initAdapter(view: View) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.favRecyclerView)
@@ -54,18 +46,8 @@ class FavCats : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-//        val toolbarTitle = activity?.findViewById<TextView>(R.id.toolbarTitle)
-//        toolbarTitle?.text = "Favorites"
-//        cancelClick()
-
-
-//        initAuth()
-
-
         val view = inflater.inflate(R.layout.fragment_fav_cats, container, false)
         initAdapter(view)
-
-//        viewModel.getPhotos()
 
         viewModel.observePhotos().observe(viewLifecycleOwner, Observer {
             adapter.notifyDataSetChanged()

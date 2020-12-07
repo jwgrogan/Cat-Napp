@@ -26,7 +26,7 @@ data class CatPost (
     )
 
 
-// this fucks up the serializer - need to find new way
+// this messes up the serializer - need to find new way
 
 data class Category (
     @SerializedName("id")

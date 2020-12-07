@@ -21,17 +21,12 @@ class SelectCats: Fragment() {
     private lateinit var swipe: SwipeRefreshLayout
     private val viewModel : MainViewModel by activityViewModels()
     private lateinit var adapter : CatAdapter
-//    private var currentUser: FirebaseUser? = null
-
 
     companion object {
         fun newInstance(): SelectCats {
             return SelectCats()
         }
     }
-
-//    private fun actionSearch() {
-//    }
 
     private fun initSwipeLayout(root: View) {
         swipe = root.findViewById(R.id.swipeRefreshLayout)
@@ -40,25 +35,6 @@ class SelectCats: Fragment() {
                 swipe.isRefreshing = false
         }
     }
-
-//    private fun initAuth() {
-//        viewModel.observeFirebaseAuthLiveData().observe(viewLifecycleOwner, Observer {
-//            currentUser = it
-//            MainViewModel.currentUser = currentUser
-//        })
-//    }
-
-//    private fun initFavorites() {
-//        val initFavorites = activity?.findViewById<ImageView>(R.id.actionFavorite)
-//        initFavorites?.setOnClickListener{
-//            parentFragmentManager
-//                .beginTransaction()
-//                .replace(R.id.main_frame, FavCats.newInstance(), favoritesFragTag)
-//                .addToBackStack(null)
-//                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-//                .commit()
-//        }
-//    }
 
     private fun initAdapter(view: View) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
@@ -80,29 +56,9 @@ class SelectCats: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        // set username in toolbar
-//        val toolbarUsername = activity?.findViewById<TextView>(R.id.toolbarUsername)
-//        val username = "Hi, " + Firebase.auth.currentUser?.displayName.toString()
-//        toolbarUsername?.text = username
-
-//        val categoryTV = activity?.findViewById<TextView>(R.id.categoryTV)
-//        categoryTV?.text = "These are some " + MainViewModel.categoryName + "cats!"
-
-//        val toolbarTitle = activity?.findViewById<TextView>(R.id.toolbarTitle)
-//        toolbarTitle?.text = MainViewModel.categoryName
-
-
-
-
-//        initAuth()
-//        initFavorites()
-
-
         val view = inflater.inflate(R.layout.fragment_select_cats, container, false)
         initAdapter(view)
         initSwipeLayout(view)
-
-
 
         viewModel.netCats()
 

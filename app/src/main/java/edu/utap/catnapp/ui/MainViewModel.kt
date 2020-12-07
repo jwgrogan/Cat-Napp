@@ -30,8 +30,7 @@ class MainViewModel : ViewModel() {
     companion object {
 
         // for firestore
-//        const val pictureURLKey = "pictureUUIDKey"
-//        var currentUser: FirebaseUser? = null
+        var db: FirebaseFirestore = FirebaseFirestore.getInstance()
         var photos = MutableLiveData<List<CatPhoto>>()
 
         // clear photos on sign out
@@ -44,8 +43,7 @@ class MainViewModel : ViewModel() {
         var categories = ""
         var categoryName = ""
 
-        // public firestore
-        var db: FirebaseFirestore = FirebaseFirestore.getInstance()
+        // cat details
         const val titleKey = "titleKey"
         const val imageURLKey = "imageURLKey"
         const val descKey = "descKey"
@@ -112,13 +110,6 @@ class MainViewModel : ViewModel() {
     private var favCats = MutableLiveData<List<CatPost>>().apply {
         value = mutableListOf()
     }
-//    private var selectedCat = MutableLiveData<CatPost>()
-
-    // firebase vars
-//    private var db: FirebaseFirestore = FirebaseFirestore.getInstance()
-//    private var firebaseAuthLiveData = FirestoreAuthLiveData()
-//    private var photos = MutableLiveData<List<CatPhoto>>()
-//    private var authListener : ListenerRegistration? = null
 
     init {
         setCategories(categories)
@@ -183,38 +174,19 @@ class MainViewModel : ViewModel() {
 
     fun deletePhoto(catPhoto: CatPhoto){
         db.collection("globalCats").document(catPhoto.rowId).delete()
-//            .addOnSuccessListener {
-//                Log.d(
-//                    javaClass.simpleName,
-//                    "Chat delete \"${catPhoto.description}\" id: ${catPhoto.rowId}"
-//                )
-//                getPhotos()
-//            }
-//            .addOnFailureListener { e ->
-//                Log.d(javaClass.simpleName, "Chat deleting FAILED \"${catPhoto.description}\"")
-//                Log.w(javaClass.simpleName, "Error adding document", e)
-//            }
     }
 
     fun getPhotos(userId: String) {
-//        var list: MutableList<CatPhoto> = mutableListOf()
         if (FirebaseAuth.getInstance().currentUser == null) {
             photos.value = listOf()
             return
         } else {
-//            val photoRef = db.collection("globalCats").orderBy("timeStamp") // return all cats
             val photoRef = db.collection("globalCats").whereEqualTo("userId", userId)
             photoRef.addSnapshotListener { querySnapshot, ex ->
                 if (ex != null) {
                     return@addSnapshotListener
                 }
                 if (querySnapshot != null) {
-//                    for (i in querySnapshot) {
-//                        if (i.get("userId") == userId) {
-//                            list.add(i.toObject(CatPhoto::class.java))
-//                        }
-//                    }
-//                    photos.value = list
                     photos.value = querySnapshot.documents.mapNotNull {
                         it.toObject(CatPhoto::class.java)
                     }

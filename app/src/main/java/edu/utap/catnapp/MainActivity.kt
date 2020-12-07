@@ -173,7 +173,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // TODO: delete this?
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         data?.extras?.apply {
