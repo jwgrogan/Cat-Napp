@@ -30,7 +30,7 @@ class MainViewModel : ViewModel() {
     companion object {
 
         // for firestore
-        const val pictureURLKey = "pictureUUIDKey"
+//        const val pictureURLKey = "pictureUUIDKey"
 //        var currentUser: FirebaseUser? = null
         var photos = MutableLiveData<List<CatPhoto>>()
 
@@ -50,7 +50,7 @@ class MainViewModel : ViewModel() {
         const val imageURLKey = "imageURLKey"
         const val descKey = "descKey"
         const val rowIdKey = "rowIdKey"
-        const val wikiURLKey = "wikiURLKey"
+//        const val wikiURLKey = "wikiURLKey"
         var breedFlag = false
         var favFlag = false
         var commentFlag = false
@@ -74,8 +74,6 @@ class MainViewModel : ViewModel() {
 
 
             commentFlag = false
-
-
 
             data.putString(imageURLKey, catPost.url)
 
@@ -144,14 +142,6 @@ class MainViewModel : ViewModel() {
     }
 
     // favorites functions
-//    fun observeFav (): LiveData<List<CatPost>> {
-//        return favCats
-//    }
-//
-//    fun observeLiveFav (): LiveData<List<CatPost>> {
-//        return favCats
-//    }
-
     fun addFav(posts : CatPost) {
         val localList = favCats.value?.toMutableList()
         localList?.let {
@@ -170,49 +160,10 @@ class MainViewModel : ViewModel() {
         }
     }
 
-
-    // selection functions
-//    fun selectCat(cat : CatPost) {
-//        selectedCat.value = cat
-//    }
-//
-//    fun isSelected(cat: CatPost): Boolean {
-//        return selectedCat.value == cat ?: false
-//    }
-
-    // firebase auth functions
-//    fun observeFirebaseAuthLiveData(): LiveData<FirebaseUser?> {
-//        return firebaseAuthLiveData
-//    }
-//
-//    fun getUserId(): String? {
-//        return firebaseAuthLiveData.value?.uid
-//    }
-
-//    fun signOut() {
-//        authListener?.remove()
-//        FirebaseAuth.getInstance().signOut()
-//        photos.value = listOf()
-//    }
-
-
-//    fun signOut() {
-//        chatListener?.remove()
-//        FirebaseAuth.getInstance().signOut()
-//        chat.value = listOf()
-//    }
-
     // firestore functions
-
     fun observePhotos(): LiveData<List<CatPhoto>> {
         return photos
     }
-
-//    fun isFavPhoto(cat: CatPhoto): Boolean {
-//        return photos.value?.contains(cat) ?: false
-//    }
-
-
 
     fun savePhoto(catPhoto: CatPhoto) {
         db.collection("globalCats")
